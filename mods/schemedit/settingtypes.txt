@@ -1,0 +1,3 @@
+# If enabled, exporting a schematic will also create a .lua file
+# in addition to the .mts file.
+schemedit_export_lua (.lua file schematic export) bool false
