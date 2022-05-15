@@ -1,4 +1,5 @@
 local c_replaceable = minetest.get_content_id("blockrooms:replaceme")
+local c_replaceable_a = minetest.get_content_id("blockrooms:replaceme_2")
 local c_unbreakable = minetest.get_content_id("blockrooms:unbreakable")
 local c_air = minetest.get_content_id("air")
 
@@ -63,7 +64,7 @@ blockrooms.generators.make_wall = function(minp,maxp, data, startpos, axis, leng
 	for i in area:iter( startpos.x, startpos.y, startpos.z, startpos.x + x_off, startpos.y + height, startpos.z + z_off ) do 
 		if data[i] == c_air then
 			data[i] = c_replaceable
-		end 
+        end
 	end
 
     --vm:set_data(data)
