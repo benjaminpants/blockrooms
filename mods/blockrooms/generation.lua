@@ -8,7 +8,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		local v = blockrooms.floors.levels[i]
 		for y=1, v.layers_to_allocate do
 			--minetest.chat_send_all("text:" .. y)
-			if (minp.y == blockrooms.get_start_floor_y((v.starting_y - 1) + y)) then
+			if (minp.y == blockrooms.floors.get_start_floor_y((v.starting_y - 1) + y)) then
 				v.generator(minp,maxp,seed, y)
 			end
 		end

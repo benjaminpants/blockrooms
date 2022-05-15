@@ -1,0 +1,21 @@
+This file is documentation for the Blockrooms groups, and other notable differences.
+For one, unlike in Minetest Game, 0 is the weakest and the strength goes up with the value, meaning you can make stronger materials by using a higher number.
+
+Anyway, here are the actual mining groups:
+hand_breakable | whether or not something can be broken by the hand, the equivalent to "oddly_breakable_by_hand"
+papery | not specifically for paper, but stuff that can be cut via sharp but not super strong objects, for instance, glass shards and scissors for the lower level, low tier axes for the higher ones
+rubbly | used for rubble or rubble like stuff, typically requires a shovel to mine.
+choppy | used for logs or other wood like objects, you likely need an axe.
+cracky | used for stone or stone like stuff
+blunt | used for nodes that need blunt force to be mined, this is used for most ceiling tiles.
+teary | similar to hand_breakable but the hand is really, really slow. gloves are best for these sorts of materials.
+
+Here are the item groups:
+wood | for medium sized wood objects
+stone | any medium sized stone object
+rock | any small sized stone object
+sticky | anything sticky, tape, glue, whatever
+metal | any kind of metal
+iron | stuff that contains or is out of iron
+
+

@@ -99,10 +99,12 @@ local function playertic(time)
 end
 
 
-minetest.after(thirstdrain, reducethirst)
+--TODO: Re-enable stat drain once food items are re-implemented. Possibly disable stat drain if the player is in creative mode or has the "no_drain" permission.
 
-minetest.after(hungerdrain, reducehunger)
+--minetest.after(thirstdrain, reducethirst)
 
-minetest.after(sanitydrain, reducesanity)
+--minetest.after(hungerdrain, reducehunger)
+
+--minetest.after(sanitydrain, reducesanity)
 
 --minetest.register_globalstep(playertic)

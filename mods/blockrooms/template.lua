@@ -10,15 +10,7 @@ local test_function = function(minp, maxp, seed, layer)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip") 
 	local data = vm:get_data() 
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
-	for i in area:iter( minp.x, minp.y, minp.z, maxp.x, minp.y, maxp.z ) do 
-		if data[i] == c_air then
-			if (layer == 2) then
-				data[i] = c_replaceablea
-			else
-				data[i] = c_replaceable
-			end
-		end 
-	end
+	data = blockrooms.generators.basic_floor_and_ceiling(minp, maxp, seed, 0,4,false,true)
 	
 	vm:set_data(data)
 
@@ -41,9 +33,14 @@ end
 local testdata = {
 	internal_name = "example_floor", --the internal name used by various internal functions. this should not change. ever. please dont change this after you release your mod.
 	display_name = "Floor EXAMPLE", --The external name, you can localize it if you want or just leave it.
-	floor_slot = 0, --a not super important internal id, mostly used for sorting, multiple floors can share the same floor slot but its not recommended. Floor slots should be the same as the number in the floor's name
+	short_name = "EXAMPLE", --this should typically be the number, for instance if its Floor 0 this should be "0". Floor FUN would be "FUN" and whatnot.
+	floor_slot = 0, --used for sorting.
 	generator = test_function, --a generator function, the function is basically just a hook for register_on_generated, but only called on certain conditions
+	level_type = "normal", --the type of the floor, supports "normal", "enigmatic", and "sublevel" at the moment. set a floor as enigmatic if it should be ignored by stuff like the hub.
+	--sublevel doesn't do anything at the moment, but will probably be used for sorting in the future.
 	layers_to_allocate = 2 --how many "layers" should be allocated? layers in this case mean how many mapchunks tall should this floor be?
+	--on_player_death = function(player) --a function that is called when a player dies on this floor, return true to do the default death handling, false to prevent it
+	--on_player_spawn = function(player,previous_floor) --previous_floor is the internal name of the previous floor the player was on before being sent to this one, if left blank the default spawn code will be used.
 }
 
 blockrooms.floors.add_level(testdata)
