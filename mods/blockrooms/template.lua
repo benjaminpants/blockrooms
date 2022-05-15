@@ -13,50 +13,13 @@ local test_function = function(minp, maxp, seed, layer)
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
 
 	math.randomseed(seed)
-	data = blockrooms.generators.basic_floor_and_ceiling(minp, maxp, data, 0,4,false,false)
-
-
-	--minetest world gen is awful and forces me to write spaghetti code
-	--setting the data to the same value twice causes minetest to have a stroke and refuse to 
-	--replace it properly so i have to manually write code to make sure nothing ever overlaps an already placed tile
-	--if the simple solution worked i would've used the simple solution
-	blockrooms.generators.make_wall(minp,maxp, data, vector.new(minp.x,minp.y + 1,minp.z), "x", 1, 3)
-	for k=0, 9 do
-		for i=0, 7 do
-			for j=0, 4 do
-				local anti_clipping_offset = 0
-				if (i==7 and j == 4) then
-					anti_clipping_offset = 1
-				end
-				if (math.random(1,4) ~= 1) then --this issue doesnt happen without the rng call
-					data = blockrooms.generators.make_wall(minp,maxp, data, vector.new(minp.x + (i * 10) + (j * 2) + 1,minp.y + 1,minp.z + (k * 8)), "x", 2 - anti_clipping_offset, 3)
-				end
-			end
-		end
-	end
-
-
-	for k=0, 9 do
-		for i=0, 7 do
-			for j=0, 4 do
-				local anti_clipping_offset = 0
-				if (i==7 and j == 4 and k == 0) then
-					anti_clipping_offset = 1
-				end
-				if (math.random(1,4) ~= 1) then --this issue doesnt happen without the rng call
-					data = blockrooms.generators.make_wall(minp,maxp, data, vector.new(minp.x + (k * 8),minp.y + 1,minp.z + 1 + (i * 10) + (j * 2)), "z", 2 - anti_clipping_offset, 3)
-				end
-			end
-		end
+	for i in area:iter( minp.x, minp.y, minp.z, maxp.x, minp.y, maxp.z ) do 
+		if data[i] == c_air then
+			data[i] = c_replaceable
+		end 
 	end
 
 	
-
-	for i in area:iter( minp.x, minp.y, minp.z, maxp.x, maxp.y, maxp.z ) do 
-		if data[i] == c_replaceable then
-			data[i] = c_unbreakable
-		end 
-	end
 	
 	vm:set_data(data)
 

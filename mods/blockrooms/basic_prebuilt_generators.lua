@@ -33,7 +33,7 @@ blockrooms.generators.basic_floor_and_ceiling = function(minp, maxp, data, start
     local ch = minp.y + starty + ceiling_height + offset
     for i in area:iter( minp.x, ch, minp.z, maxp.x, ch, maxp.z ) do 
 		if data[i] == c_air then
-			--data[i] = c_replaceable
+			data[i] = c_replaceable
 		end 
 	end
 
