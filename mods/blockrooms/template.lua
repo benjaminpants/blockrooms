@@ -16,14 +16,10 @@ local test_function = function(minp, maxp, seed, layer)
 	data = blockrooms.generators.basic_floor_and_ceiling(minp, maxp, data, 0,4,false,false)
 
 
-	for i in area:iter( minp.x, minp.y +8, minp.z, minp.x, minp.y + 8, minp.z ) do 
-		--data[i] = c_replaceableb
-	end
-
-
 	--minetest world gen is awful and forces me to write spaghetti code
 	--setting the data to the same value twice causes minetest to have a stroke and refuse to 
 	--replace it properly so i have to manually write code to make sure nothing ever overlaps an already placed tile
+	--if the simple solution worked i would've used the simple solution
 	blockrooms.generators.make_wall(minp,maxp, data, vector.new(minp.x,minp.y + 1,minp.z), "x", 1, 3)
 	for k=0, 9 do
 		for i=0, 7 do
