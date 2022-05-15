@@ -28,7 +28,7 @@ local test_function = function(minp, maxp, seed, layer)
 				if (i==7 and j == 4) then
 					anti_clipping_offset = 1
 				end
-				if (math.random(1,4) ~= 1) then
+				if (true) then --this was a random call but i removed it for testing
 					data = blockrooms.generators.make_wall(minp,maxp, data, vector.new(minp.x + (i * 10) + (j * 2) + 1,minp.y + 1,minp.z + (k * 8)), "x", 2 - anti_clipping_offset, 3)
 				end
 			end
@@ -43,7 +43,7 @@ local test_function = function(minp, maxp, seed, layer)
 				if (i==7 and j == 4 and k == 0) then
 					anti_clipping_offset = 1
 				end
-				if (math.random(1,4) ~= 1) then
+				if (true) then --this was a random call but i removed it for testing
 					data = blockrooms.generators.make_wall(minp,maxp, data, vector.new(minp.x + (k * 8),minp.y + 1,minp.z + 1 + (i * 10) + (j * 2)), "z", 2 - anti_clipping_offset, 3)
 				end
 			end
