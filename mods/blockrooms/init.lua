@@ -35,31 +35,7 @@ end
 
 
 
-minetest.register_node("blockrooms:replaceme", {
-description = "REPLACE ME",
-tiles = {"blockrooms_replaceme.png"},
-groups = {hand_breakable=1}
-})
 
-minetest.register_node("blockrooms:unbreakable", {
-description = "Unbreakable",
-tiles = {"blockrooms_unbreakable.png"},
-groups = {hand_breakable=1} --hehe its breakable but thats for testing purposes.
-})
-
---TODO: delete these. they are dumb.
-
-minetest.register_node("blockrooms:replaceme_2", {
-description = "REPLACE ME",
-tiles = {"blockrooms_replaceme.png^blockrooms_icon_sanity.png"},
-groups = {hand_breakable=1}
-})
-
-minetest.register_node("blockrooms:replaceme_3", {
-description = "REPLACE ME",
-tiles = {"blockrooms_replaceme.png^blockrooms_icon_hunger.png"},
-groups = {hand_breakable=1}
-})
 
 minetest.register_item(":", {
 	type = "none",
@@ -82,6 +58,35 @@ hb.register_hudbar("br_hunger", 0xFFFFFF, "Hunger", { icon = "blockrooms_icon_hu
 hb.register_hudbar("br_sanity", 0xFFFFFF, "Sanity", { icon = "blockrooms_icon_sanity.png", bgicon = "blockrooms_bgicon_sanity.png", bar = "blockrooms_bar_sanity.png"}, 100, 100, false)
 
 local default_path = minetest.get_modpath("blockrooms")
+
+dofile(default_path .. "/sounds.lua")
+
+minetest.register_node("blockrooms:replaceme", {
+description = "REPLACE ME",
+tiles = {"blockrooms_replaceme.png"},
+groups = {hand_breakable=1},
+sounds = blockrooms.node_sound_base_custom_place({},"wood")
+})
+
+minetest.register_node("blockrooms:unbreakable", {
+description = "Unbreakable",
+tiles = {"blockrooms_unbreakable.png"},
+groups = {hand_breakable=1} --hehe its breakable but thats for testing purposes.
+})
+
+--TODO: delete these. they are dumb.
+
+minetest.register_node("blockrooms:replaceme_2", {
+description = "REPLACE ME",
+tiles = {"blockrooms_replaceme.png^blockrooms_icon_sanity.png"},
+groups = {hand_breakable=1}
+})
+
+minetest.register_node("blockrooms:replaceme_3", {
+description = "REPLACE ME",
+tiles = {"blockrooms_replaceme.png^blockrooms_icon_hunger.png"},
+groups = {hand_breakable=1}
+})
 
 dofile(default_path .. "/random_utils.lua")
 
