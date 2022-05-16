@@ -1,3 +1,5 @@
+local S = minetest.get_translator()
+
 blockrooms = {}
 
 blockrooms.default_floor = "example_floor"
@@ -30,7 +32,7 @@ blockrooms.thirst_max = 50
 blockrooms.sanity_max = 100
 
 blockrooms.floors.get_start_floor_y = function(starting_y)
-    return 48 + starting_y * 80
+    return 48 + (starting_y - 387) * 80 --why reduce the height? it allows for squeezing as many levels as possible into one world.
 end
 
 
@@ -64,14 +66,15 @@ dofile(default_path .. "/sounds.lua")
 minetest.register_node("blockrooms:replaceme", {
 description = "REPLACE ME",
 tiles = {"blockrooms_replaceme.png"},
-groups = {hand_breakable=1},
+groups = {hand_breakable=3},
 sounds = blockrooms.node_sound_base_custom_place({},"wood")
 })
 
 minetest.register_node("blockrooms:unbreakable", {
 description = "Unbreakable",
 tiles = {"blockrooms_unbreakable.png"},
-groups = {hand_breakable=1} --hehe its breakable but thats for testing purposes.
+groups = {hand_breakable=3},
+sounds = blockrooms.node_sound_base({},"tin")
 })
 
 --TODO: delete these. they are dumb.
@@ -100,3 +103,6 @@ dofile(default_path .. "/template.lua")
 
 dofile(default_path .. "/generation.lua")
 
+--add localizations for the following strings(mostly for the automatic localization creator) in the main file so its not scattered everywhere.
+
+S("@1 Floor", "")

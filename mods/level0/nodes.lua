@@ -4,7 +4,7 @@ local S = minetest.get_translator()
 
 
 --this isnt for people to add extra wallpapers its just to avoid a ton of copy and pasted code
-local wallpapers = {{"level0_wallpaper.png","Arrow Wallpaper", "arrow_wallpaper"}, {"level0_wallpaper_dots.png","Dots Wallpaper", "dots_wallpaper"}, {"level0_wallpaper_lines.png","Lines Wallpaper", "lines_wallpaper"}}
+local wallpapers = {{"level0_wallpaper.png","Arrow Wallpaper", "arrow_wallpaper"}, {"level0_wallpaper_dots.png","Dots Wallpaper", "dots_wallpaper"}, {"level0_wallpaper_lines.png","Stripes Wallpaper", "stripes_wallpaper"}}
 
 
 for i=1, #wallpapers do
@@ -19,6 +19,9 @@ for i=1, #wallpapers do
         groups = {papery=1}
     })
 end
+
+
+--level0:arrow_wallpaper,level0:dots_wallpaper,level0:lines_wallpaper
 
 minetest.register_node("level0:carpet", {
     description = "Carpet",

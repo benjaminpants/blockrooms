@@ -43,7 +43,7 @@ local testdata = {
 	internal_name = "example_floor", --the internal name used by various internal functions. this should not change. ever. please dont change this after you release your mod.
 	display_name = "Floor EXAMPLE", --The external name, you can localize it if you want or just leave it.
 	short_name = "EXAMPLE", --this should typically be the number, for instance if its Floor 0 this should be "0". Floor FUN would be "FUN" and whatnot.
-	floor_slot = 0, --used for sorting.
+	floor_slot = -69, --used for sorting.
 	generator = test_function, --a generator function, the function is basically just a hook for register_on_generated, but only called on certain conditions
 	level_type = "normal", --the type of the floor, supports "normal", "enigmatic", and "sublevel" at the moment. set a floor as enigmatic if it should be ignored by stuff like the hub.
 	--sublevel doesn't do anything at the moment, but will probably be used for sorting in the future.
