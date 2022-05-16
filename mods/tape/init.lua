@@ -1,6 +1,8 @@
 
+local S = minetest.get_translator()
+
 minetest.register_craftitem("tape:tapeless_roll", {
-    description = "Empty Tape Roll",
+    description = S("Empty Tape Roll"),
     inventory_image = "tape_tape_roll.png"
 })
 
@@ -8,14 +10,14 @@ minetest.register_craftitem("tape:tapeless_roll", {
 colors.foreach(function(color)
 
     minetest.register_craftitem("tape:tape_" .. color.id, {
-        description = color.name .. " Tape Piece",
+        description = S("@1 Tape Piece", color.name),
         inventory_image = "tape_tape_piece.png^[multiply:#" .. color.rgb,
         groups = {tape_piece=1},
         stack_max = 16
     })
 
     minetest.register_node("tape:tape_cross_" .. color.id, {
-        description = color.name .. " Taped Cross",
+        description = S("@1 Taped Cross", color.name),
         drawtype = "signlike",
         paramtype = "light",
         paramtype2 = "wallmounted",
@@ -30,13 +32,13 @@ colors.foreach(function(color)
         sunlight_propagates = true,
         tiles = {"tape_tape_cross.png^[multiply:#" .. color.rgb},
         is_ground_content = false,
-        groups = {near_instant=3}
+        groups = {near_instant=1, not_in_creative_inventory=1}
         --sounds = backrooms.node_sound_defaults()
         })
 
 
     minetest.register_craftitem("tape:tape_roll_" .. color.id, {
-        description = color.name .. " Tape Roll",
+        description = S("@1 Tape Roll", color.name),
         inventory_image = "(tape_tape_roll.png)^(tape_tape_tape.png^[multiply:#" .. color.rgb .. ")",
         groups = {tape=1},
         stack_max = 8,

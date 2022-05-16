@@ -47,7 +47,8 @@ minetest.register_item(":", {
 		full_punch_interval = 1.0,
 		max_drop_level = 0,
 		groupcaps = { --WE ARE NOT BOUND BY MINETEST GAME. WE CAN RIGHT THE WRONGS OF ITS SINS. 0 IS THE WEAKEST. STRONGNESS GOES UP AS THE NUMBER DOES.
-			hand_breakable = {times={[3]=7.00,[2]=4.00,[1]=1.40, [0]=0.6}, uses=0, maxlevel=3}
+			hand_breakable = {times={[3]=7.00,[2]=4.00,[1]=1.40}, uses=0, maxlevel=3},
+			near_instant = {times={[3]=0.3,[2]=0.2,[1]=0.1}, uses=0, maxlevel=3}
 		},
 		damage_groups = {fleshy=1},
 	}
