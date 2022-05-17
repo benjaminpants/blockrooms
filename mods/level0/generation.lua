@@ -4,6 +4,8 @@ local c_unbreakable = minetest.get_content_id("blockrooms:unbreakable")
 
 local c_carpet = minetest.get_content_id("level0:carpet")
 
+local c_ceiling = minetest.get_content_id("level0:ceiling_tile")
+
 local c_wall_arrow = minetest.get_content_id("level0:arrow_wallpaper")
 
 local c_wall_arrow_trim = minetest.get_content_id("level0:trim_arrow_wallpaper")
@@ -15,6 +17,8 @@ local c_wall_dots_trim = minetest.get_content_id("level0:trim_dots_wallpaper")
 local c_wall_stripes = minetest.get_content_id("level0:stripes_wallpaper")
 
 local c_wall_stripes_trim = minetest.get_content_id("level0:trim_stripes_wallpaper")
+
+local c_light = minetest.get_content_id("level0:light")
 
 local c_air = minetest.get_content_id("air")
 
@@ -38,7 +42,7 @@ local function GenerateRandomWallData(rng_carve)
 	data.main_block = wall_types[1]
 	data.trim_block = wall_types[2]
 
-	if (math.random(1,15) ~= 1) then
+	if (math.random(1,12) ~= 1) then
 		data.trim_block = nil
 	end
 
@@ -51,6 +55,9 @@ local function GenerateWall(startx, direction, seed, area, data, width,maxp, wal
 	local move_x = 0
 	local move_z = 0
 	local height = 4
+	if (blockrooms.rng_utils.percentage(1)) then
+		height = 3 --those weird lower hanging walls are rare but do happen.
+	end
 	if (direction == "x") then
 		move_x = 1
 	else
@@ -86,6 +93,9 @@ local function GenerateRoom(startx, seed, area, data, maxp)
 		GenerateWall(startx, "z", seed, area, data, 4, maxp, GenerateRandomWallData(true))
 	end
 
+	data[area:index(startx.x + 4, startx.y + 4, startx.z + 4)] = c_light
+	data[area:index(startx.x + 5, startx.y + 4, startx.z + 4)] = c_light
+
     return data
 end
 
@@ -112,9 +122,20 @@ local main_generate_function = function(minp, maxp, seed, layer)
 	for i in area:iter( minp.x, minp.y + 1, minp.z, maxp.x, minp.y + 1, maxp.z) do 
 		data[i] = c_carpet
 	end
+
+	for i in area:iter( minp.x, minp.y + 6, minp.z, maxp.x, minp.y + 6, maxp.z) do
+		if (data[i] == c_air) then
+			data[i] = c_ceiling
+		end
+	end
+	for i in area:iter( minp.x, minp.y + 7, minp.z, maxp.x, minp.y + 7, maxp.z) do 
+		data[i] = c_unbreakable
+	end
+
+	
     vm:set_data(data)
 
-	vm:set_lighting{day=15, night=0} 
+	vm:set_lighting{day=0, night=0} 
 	
 	vm:calc_lighting() 
 
