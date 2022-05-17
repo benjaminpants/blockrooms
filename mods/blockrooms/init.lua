@@ -42,7 +42,7 @@ end
 minetest.register_item(":", {
 	type = "none",
 	wield_image = "blockrooms_hand.png",
-	wield_scale = {x=1,y=1,z=2.5},
+	wield_scale = {x=1,y=1,z=3.5},
 	tool_capabilities = {
 		full_punch_interval = 1.0,
 		max_drop_level = 0,
