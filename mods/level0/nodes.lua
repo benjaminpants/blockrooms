@@ -24,13 +24,26 @@ end
 --level0:arrow_wallpaper,level0:dots_wallpaper,level0:lines_wallpaper
 
 minetest.register_node("level0:carpet", {
-    description = "Carpet",
+    description = S("Carpet"),
     tiles = {"level0_carpet.png"},
     groups = {soft=1}
 })
 
 minetest.register_node("level0:ceiling_tile", {
-    description = "Ceiling Tile",
+    description = S("Ceiling Tile"),
     tiles = {"level0_ceil.png"},
     groups = {blunt=3},
+})
+
+minetest.register_node("level0:light", {
+description = S("Fluorescent Tube Light"),
+tiles = {"level0_ceiling_light.png"},
+paramtype = "light",
+light_source = 12,
+groups = {hand_breakable=2},
+--drop = "backrooms:glass_shard 3",
+on_dig = function(pos,node,player)
+    player:set_hp(player:get_hp() - 2)
+    minetest.node_dig(pos,node,player)
+end
 })

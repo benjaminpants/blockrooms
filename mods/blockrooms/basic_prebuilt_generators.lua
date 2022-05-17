@@ -5,7 +5,7 @@ local c_air = minetest.get_content_id("air")
 
 blockrooms.generators = {}
 
-blockrooms.generators.basic_floor_and_ceiling = function(minp, maxp, data, starty,ceiling_height, unbreakable_floor, unbreakable_ceiling)
+blockrooms.generators.basic_floor_and_ceiling = function(minp, maxp, data, starty,ceiling_height, unbreakable_floor, unbreakable_ceiling, floor_mat, ceiling_mat)
     local vm, emin, emax = minetest.get_mapgen_object("voxelmanip") 
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
     local offset = 0
@@ -16,32 +16,24 @@ blockrooms.generators.basic_floor_and_ceiling = function(minp, maxp, data, start
     if (unbreakable_floor) then
         offset = 1
         for i in area:iter( minp.x, minp.y + starty, minp.z, maxp.x, minp.y + starty, maxp.z ) do 
-            if data[i] == c_air then
-                data[i] = c_unbreakable
-            end 
+            data[i] = c_unbreakable
         end
     end
 
     --create the floor
 	for i in area:iter( minp.x, minp.y + starty + offset, minp.z, maxp.x, minp.y + starty + offset, maxp.z ) do 
-		if data[i] == c_air then
-			data[i] = c_replaceable
-		end 
+		data[i] = floor_mat
 	end
 
     --create the ceiling
     local ch = minp.y + starty + ceiling_height + offset
     for i in area:iter( minp.x, ch, minp.z, maxp.x, ch, maxp.z ) do 
-		if data[i] == c_air then
-			data[i] = c_replaceable
-		end 
+		data[i] = ceiling_mat
 	end
 
     if (unbreakable_ceiling) then
         for i in area:iter( minp.x, ch + 1, minp.z, maxp.x, ch + 1, maxp.z ) do 
-            if data[i] == c_air then
-                data[i] = c_unbreakable
-            end 
+            data[i] = c_unbreakable
         end
     end
 	

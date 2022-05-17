@@ -1,5 +1,7 @@
 local S = minetest.get_translator()
 
+local c_unbreakable = minetest.get_content_id("blockrooms:unbreakable")
+
 local c_carpet = minetest.get_content_id("level0:carpet")
 
 local c_wall_arrow = minetest.get_content_id("level0:arrow_wallpaper")
@@ -15,6 +17,8 @@ local c_wall_stripes = minetest.get_content_id("level0:stripes_wallpaper")
 local c_wall_stripes_trim = minetest.get_content_id("level0:trim_stripes_wallpaper")
 
 local c_air = minetest.get_content_id("air")
+
+local c_unbreakable = minetest.get_content_id("blockrooms:unbreakable")
 
 local weighted_wall_types = {{{c_wall_arrow,c_wall_arrow_trim},2500}, {{c_wall_dots,c_wall_dots_trim},100}, {{c_wall_stripes,c_wall_stripes_trim},200}}
 
@@ -53,7 +57,7 @@ local function GenerateWall(startx, direction, seed, area, data, width,maxp, wal
 		move_z = 1
 	end
 	for j=0, width do
-		if (math.random(1,4) ~= 1) or (not wall_data.randomly_carve) then
+		if (blockrooms.rng_utils.percentage(71)) or (not wall_data.randomly_carve) then
 			local offset = (j * 2)
 			local offset_2 = ((j * 2) + 1)
 			if (wall_data.trim_block ~= nil and j ~= width) then --before anyone asks, i made this just so it matches the original image where the trim ends before the wall completly ends
@@ -75,8 +79,12 @@ local function GenerateWall(startx, direction, seed, area, data, width,maxp, wal
 end
 
 local function GenerateRoom(startx, seed, area, data, maxp)
-    GenerateWall(startx, "x", seed, area, data, 4, maxp, GenerateRandomWallData(true))
-	GenerateWall(startx, "z", seed, area, data, 4, maxp, GenerateRandomWallData(true))
+	if (blockrooms.rng_utils.percentage(99)) then
+    	GenerateWall(startx, "x", seed, area, data, 4, maxp, GenerateRandomWallData(true))
+	end
+	if (blockrooms.rng_utils.percentage(99)) then
+		GenerateWall(startx, "z", seed, area, data, 4, maxp, GenerateRandomWallData(true))
+	end
 
     return data
 end
@@ -90,15 +98,20 @@ local main_generate_function = function(minp, maxp, seed, layer)
 
 	math.randomseed(seed)
 
-	for i in area:iter( minp.x, minp.y, minp.z, maxp.x, minp.y, maxp.z ) do 
-		data[i] = c_carpet
-	end
+	
 	for j=0, 8 do
 		for	i=0, 8 do
-			GenerateRoom(vector.new(minp.x + (i * 9), minp.y + 1, minp.z + (j * 9)), seed, area, data)
+			GenerateRoom(vector.new(minp.x + (i * 9), minp.y + 2, minp.z + (j * 9)), seed, area, data)
 		end
 	end
 
+	for i in area:iter( minp.x, minp.y, minp.z, maxp.x, minp.y, maxp.z) do 
+		data[i] = c_unbreakable
+	end
+
+	for i in area:iter( minp.x, minp.y + 1, minp.z, maxp.x, minp.y + 1, maxp.z) do 
+		data[i] = c_carpet
+	end
     vm:set_data(data)
 
 	vm:set_lighting{day=15, night=0} 
@@ -119,6 +132,7 @@ blockrooms.floors.add_level({
 	generator = main_generate_function, --a generator function, the function is basically just a hook for register_on_generated, but only called on certain conditions
 	level_type = "normal", --the type of the floor, supports "normal", "enigmatic", and "sublevel" at the moment. set a floor as enigmatic if it should be ignored by stuff like the hub.
 	--sublevel doesn't do anything at the moment, but will probably be used for sorting in the future.
+	spawn_offset = 2,
 	layers_to_allocate = 1 --how many "layers" should be allocated? layers in this case mean how many mapchunks tall should this floor be?
 	--on_player_death = function(player) --a function that is called when a player dies on this floor, return true to do the default death handling, false to prevent it
 	--on_player_spawn = function(player,previous_floor) --previous_floor is the internal name of the previous floor the player was on before being sent to this one, if left blank the default spawn code will be used.

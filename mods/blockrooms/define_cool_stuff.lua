@@ -35,7 +35,7 @@ blockrooms.floors.teleport_player_to_floor = function(player, floor)
 	if (data.on_player_spawn ~= nil) then
 		data.on_player_spawn(player)
 	else
-		player:set_pos(vector.new(math.random(-8000,8000),blockrooms.floors.get_start_floor_y(data.starting_y) + 1,math.random(-8000,8000)))
+		player:set_pos(vector.new(math.random(-8000,8000),blockrooms.floors.get_start_floor_y(data.starting_y) + (data.spawn_offset or 1),math.random(-8000,8000)))
 	end
 
 end
@@ -77,3 +77,22 @@ minetest.register_on_dieplayer(function(player)
 	end
 	--minetest.chat_send_all(player:get_player_name() .. " died.")
 end)
+
+
+minetest.register_on_respawnplayer(function(player)
+	local meta = player:get_meta()
+	blockrooms.floors.teleport_player_to_floor(player,meta:get_string("floor"))
+	return true
+end)
+
+blockrooms.use_item_plus_output = function(output, itemstack, player) --i would use this for the tape but like dependencies break it soo
+	local inv = player:get_inventory()
+	if (itemstack:get_count() == 1 and not inv:contains_item("main", ItemStack(output))) then --if there is only one roll and aren't any other already existing rolls
+		return ItemStack(output)
+	else
+		itemstack:take_item()
+		inv:add_item("main",ItemStack(output))
+		return itemstack
+	end
+
+end
