@@ -32,7 +32,7 @@ for i=1, #wallpapers do
     })
     minetest.register_node("level0:trim_" .. wallpapers[i][3], {
         description = S("@1 Trim", S(wallpapers[i][2])),
-        tiles = {wallpapers[i][1],wallpapers[i][1],wallpapers[i][1] .. "^level0_trim.png"},
+        tiles = {"level0_wallpaper_top.png","level0_wallpaper_top.png",wallpapers[i][1] .. "^level0_trim.png"},
         groups = {papery=1}
     })
 end
