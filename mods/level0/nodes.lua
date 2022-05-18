@@ -39,7 +39,7 @@ minetest.register_node("level0:light", {
 description = S("Fluorescent Tube Light"),
 tiles = {"level0_ceiling_light.png"},
 paramtype = "light",
-light_source = 14,
+light_source = 12,
 groups = {hand_breakable=2},
 --drop = "backrooms:glass_shard 3",
 on_dig = function(pos,node,player)
