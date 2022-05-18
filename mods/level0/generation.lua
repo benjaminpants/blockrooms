@@ -1,30 +1,32 @@
 local S = minetest.get_translator()
 
-local c_unbreakable = minetest.get_content_id("blockrooms:unbreakable")
+local G = minetest.get_content_id --to shorten code for the sake of my sanity.
 
-local c_carpet = minetest.get_content_id("level0:carpet")
+local c_unbreakable = G("blockrooms:unbreakable")
 
-local c_ceiling = minetest.get_content_id("level0:ceiling_tile")
+local c_carpet = G("level0:carpet")
 
-local c_wall_arrow = minetest.get_content_id("level0:arrow_wallpaper")
+local c_ceiling = G("level0:ceiling_tile")
 
-local c_wall_arrow_trim = minetest.get_content_id("level0:trim_arrow_wallpaper")
+local c_wall_arrow = G("level0:arrow_wallpaper")
 
-local c_wall_dots = minetest.get_content_id("level0:dots_wallpaper")
+local c_wall_arrow_trim = G("level0:trim_arrow_wallpaper")
 
-local c_wall_dots_trim = minetest.get_content_id("level0:trim_dots_wallpaper")
+local c_wall_dots = G("level0:dots_wallpaper")
 
-local c_wall_stripes = minetest.get_content_id("level0:stripes_wallpaper")
+local c_wall_dots_trim = G("level0:trim_dots_wallpaper")
 
-local c_wall_stripes_trim = minetest.get_content_id("level0:trim_stripes_wallpaper")
+local c_wall_stripes = G("level0:stripes_wallpaper")
 
-local c_light = minetest.get_content_id("level0:light")
+local c_wall_stripes_trim = G("level0:trim_stripes_wallpaper")
 
-local c_air = minetest.get_content_id("air")
+local c_light = G("level0:light")
 
-local c_unbreakable = minetest.get_content_id("blockrooms:unbreakable")
+local c_air = G("air")
 
-local weighted_wall_types = {{{c_wall_arrow,c_wall_arrow_trim},2500}, {{c_wall_dots,c_wall_dots_trim},100}, {{c_wall_stripes,c_wall_stripes_trim},200}}
+local c_unbreakable = G("blockrooms:unbreakable")
+
+local weighted_wall_types = {{{"level0:arrow_wallpaper","level0:trim_arrow_wallpaper"},2500}, {{"level0:dots_wallpaper","level0:trim_dots_wallpaper"},100}, {{"level0:stripes_wallpaper","level0:trim_stripes_wallpaper"},200}}
 
 
 local generic_wall_data = {
@@ -55,6 +57,7 @@ local function GenerateWall(startx, direction, seed, area, data, width,maxp, wal
 	local move_x = 0
 	local move_z = 0
 	local height = 4
+	local moss_chance = 5
 	if (blockrooms.rng_utils.percentage(1)) then
 		height = 3 --those weird lower hanging walls are rare but do happen.
 	end
@@ -63,20 +66,31 @@ local function GenerateWall(startx, direction, seed, area, data, width,maxp, wal
 	else
 		move_z = 1
 	end
+	local append = ""
 	for j=0, width do
 		if (blockrooms.rng_utils.percentage(71)) or (not wall_data.randomly_carve) then
 			local offset = (j * 2)
 			local offset_2 = ((j * 2) + 1)
 			if (wall_data.trim_block ~= nil and j ~= width) then --before anyone asks, i made this just so it matches the original image where the trim ends before the wall completly ends
 				for i in area:iter( startx.x + (offset * move_x), startx.y + 1, startx.z + (offset * move_z), startx.x + (offset_2 * move_x), startx.y + (height - 1), startx.z + (offset_2 * move_z) ) do 
-					data[i] = wall_data.main_block
+					if (blockrooms.rng_utils.percentage(moss_chance)) then
+						append = "_moss"
+					else
+						append = ""
+					end
+					data[i] = G(wall_data.main_block .. append)
 				end
 				for i in area:iter( startx.x + (offset * move_x), startx.y, startx.z + (offset * move_z), startx.x + (offset_2 * move_x), startx.y, startx.z + (offset_2 * move_z) ) do 
-					data[i] = wall_data.trim_block
+					data[i] = G(wall_data.trim_block)
 				end
 			else
 				for i in area:iter( startx.x + (offset * move_x), startx.y, startx.z + (offset * move_z), startx.x + (offset_2 * move_x), startx.y + (height - 1), startx.z + (offset_2 * move_z) ) do 
-					data[i] = wall_data.main_block
+					if (blockrooms.rng_utils.percentage(moss_chance)) then
+						append = "_moss"
+					else
+						append = ""
+					end
+					data[i] = G(wall_data.main_block .. append)
 				end
 			end
 		end
