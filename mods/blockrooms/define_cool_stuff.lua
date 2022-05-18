@@ -87,6 +87,9 @@ end)
 
 blockrooms.use_item_plus_output = function(output, itemstack, player) --i would use this for the tape but like dependencies break it soo
 	local inv = player:get_inventory()
+	if (minetest.check_player_privs(player, {creative=true})) then
+		return itemstack
+	end
 	if (itemstack:get_count() == 1 and not inv:contains_item("main", ItemStack(output))) then --if there is only one roll and aren't any other already existing rolls
 		return ItemStack(output)
 	else

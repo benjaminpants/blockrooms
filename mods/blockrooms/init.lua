@@ -54,11 +54,11 @@ minetest.register_item(":", {
 	}
 })
 
-hb.register_hudbar("br_thirst", 0xFFFFFF, "Thirst", { icon = "blockrooms_icon_thrist.png", bgicon = "blockrooms_bgicon_thrist.png", bar = "blockrooms_bar_thirst.png"}, 50, 50, false)
+hb.register_hudbar("br_thirst", 0xFFFFFF, "Thirst", { icon = "blockrooms_icon_thrist.png", bgicon = "blockrooms_bgicon_thrist.png", bar = "blockrooms_bar_thirst.png"}, blockrooms.thirst_max, blockrooms.thirst_max, false)
 
-hb.register_hudbar("br_hunger", 0xFFFFFF, "Hunger", { icon = "blockrooms_icon_hunger.png", bgicon = "blockrooms_bgicon_hunger.png", bar = "blockrooms_bar_hunger.png"}, 100, 100, false)
+hb.register_hudbar("br_hunger", 0xFFFFFF, "Hunger", { icon = "blockrooms_icon_hunger.png", bgicon = "blockrooms_bgicon_hunger.png", bar = "blockrooms_bar_hunger.png"}, blockrooms.hunger_max, blockrooms.hunger_max, false)
 
-hb.register_hudbar("br_sanity", 0xFFFFFF, "Sanity", { icon = "blockrooms_icon_sanity.png", bgicon = "blockrooms_bgicon_sanity.png", bar = "blockrooms_bar_sanity.png"}, 100, 100, false)
+hb.register_hudbar("br_sanity", 0xFFFFFF, "Sanity", { icon = "blockrooms_icon_sanity.png", bgicon = "blockrooms_bgicon_sanity.png", bar = "blockrooms_bar_sanity.png"}, blockrooms.sanity_max, blockrooms.sanity_max, false)
 
 local default_path = minetest.get_modpath("blockrooms")
 
@@ -74,7 +74,6 @@ sounds = blockrooms.node_sound_base_custom_place({},"wood")
 minetest.register_node("blockrooms:unbreakable", {
 description = "Unbreakable",
 tiles = {"blockrooms_unbreakable.png"},
-groups = {hand_breakable=3},
 sounds = blockrooms.node_sound_base({},"tin")
 })
 
@@ -97,6 +96,8 @@ dofile(default_path .. "/random_utils.lua")
 dofile(default_path .. "/basic_prebuilt_generators.lua")
 
 dofile(default_path .. "/define_cool_stuff.lua")
+
+dofile(default_path .. "/food_and_drinks.lua")
 
 dofile(default_path .. "/timers.lua")
 

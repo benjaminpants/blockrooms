@@ -44,7 +44,13 @@ colors.foreach(function(color)
         stack_max = 8,
         on_place = function(itemstack, placer, pointed_thing)
             local inv = placer:get_inventory()
+            if (minetest.is_protected(pointed_thing.above, player)) then --check for permissions
+                return itemstack
+            end
             minetest.item_place_node(ItemStack("tape:tape_cross_" .. color.id),placer,pointed_thing)
+            if (minetest.check_player_privs(placer, {creative=true})) then
+                return itemstack
+            end
             if (itemstack:get_count() == 1 and not inv:contains_item("main", ItemStack("tape:tapeless_roll"))) then --if there is only one roll and aren't any other already existing rolls
                 return ItemStack("tape:tapeless_roll")
             else
