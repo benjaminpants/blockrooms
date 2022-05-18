@@ -8,7 +8,7 @@ rubbly | used for rubble or rubble like stuff, typically requires a shovel to mi
 choppy | used for logs or other wood like objects, you likely need an axe.
 cracky | used for stone or stone like stuff
 blunt | used for nodes that need blunt force to be mined, this is used for most ceiling tiles.
-soft | wool or what not. Not automatically breakable by hand.
+soft | wool or what not. Not automatically breakable by hand, more effective with shears and shearlike objects
 teary | similar to hand_breakable but the hand is really, really slow. gloves are best for these sorts of materials.
 
 Here are the item groups:

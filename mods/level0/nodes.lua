@@ -46,6 +46,23 @@ minetest.register_node("level0:carpet", {
     groups = {soft=1}
 })
 
+minetest.register_node("level0:carpet_wet", {
+    description = S("Wet Carpet"),
+    tiles = {"level0_carpet.png^blockrooms_water_stain.png","level0_carpet.png"},
+    drop = "level0:carpet",
+    on_rightclick = function(pos,node,clicker,itemstack)
+        if (not minetest.is_player(clicker)) then return end
+        if (minetest.is_protected(pos, clicker)) then
+            return
+        end
+        if (blockrooms.change_player_stat(clicker,"thirst",6)) then
+            blockrooms.change_player_stat(clicker,"sanity",-4)
+            minetest.set_node(pos, {name="level0:carpet"})
+		end
+    end,
+    groups = {soft=1}
+})
+
 minetest.register_node("level0:ceiling_tile", {
     description = S("Ceiling Tile"),
     tiles = {"level0_ceil.png"},

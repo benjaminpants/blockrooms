@@ -6,19 +6,9 @@ local c_unbreakable = G("blockrooms:unbreakable")
 
 local c_carpet = G("level0:carpet")
 
+local c_carpet_wet = G("level0:carpet_wet")
+
 local c_ceiling = G("level0:ceiling_tile")
-
-local c_wall_arrow = G("level0:arrow_wallpaper")
-
-local c_wall_arrow_trim = G("level0:trim_arrow_wallpaper")
-
-local c_wall_dots = G("level0:dots_wallpaper")
-
-local c_wall_dots_trim = G("level0:trim_dots_wallpaper")
-
-local c_wall_stripes = G("level0:stripes_wallpaper")
-
-local c_wall_stripes_trim = G("level0:trim_stripes_wallpaper")
 
 local c_light = G("level0:light")
 
@@ -133,8 +123,12 @@ local main_generate_function = function(minp, maxp, seed, layer)
 		data[i] = c_unbreakable
 	end
 
-	for i in area:iter( minp.x, minp.y + 1, minp.z, maxp.x, minp.y + 1, maxp.z) do 
-		data[i] = c_carpet
+	for i in area:iter( minp.x, minp.y + 1, minp.z, maxp.x, minp.y + 1, maxp.z) do
+		if (blockrooms.rng_utils.percentage(2)) then
+			data[i] = c_carpet_wet
+		else
+			data[i] = c_carpet
+		end
 	end
 
 	for i in area:iter( minp.x, minp.y + 6, minp.z, maxp.x, minp.y + 6, maxp.z) do

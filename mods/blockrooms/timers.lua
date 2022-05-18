@@ -58,9 +58,9 @@ local function reduce_stat_sanity(stat)
 		if (light == 0) then
 			value = -1
 		end
-		if ((statstate + value) > 100) then
-			meta:set_int(stat,100)
-			hb.change_hudbar(player, "br_" .. stat, 100)
+		if ((statstate + value) > blockrooms.sanity_max) then
+			meta:set_int(stat,blockrooms.sanity_max)
+			hb.change_hudbar(player, "br_" .. stat, blockrooms.sanity_max)
 			return
 		end
 		meta:set_int(stat,statstate + value)
@@ -101,10 +101,10 @@ end
 
 --TODO: Re-enable stat drain once food items are re-implemented. Possibly disable stat drain if the player is in creative mode or has the "no_drain" permission.
 
---minetest.after(thirstdrain, reducethirst)
+minetest.after(thirstdrain, reducethirst)
 
 --minetest.after(hungerdrain, reducehunger)
 
---minetest.after(sanitydrain, reducesanity)
+minetest.after(sanitydrain, reducesanity)
 
 --minetest.register_globalstep(playertic)
