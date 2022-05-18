@@ -59,8 +59,6 @@ minetest.register_on_joinplayer(function(player)
 	hb.init_hudbar(player, "br_sanity", meta:get_int("sanity"), blockrooms.sanity_max, false)
 	player:hud_set_flags({minimap = false}) --the minimap literally doesnt work
 	player:hud_set_hotbar_itemcount(5)
-	local inv = player:get_inventory()
-	inv:set_size("armor", 3*4)
 end)
 
 minetest.register_on_dieplayer(function(player)

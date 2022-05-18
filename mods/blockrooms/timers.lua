@@ -16,11 +16,11 @@ local function reduce_stat(stat)
 		
 		if (statstate == 0) then
 			if (stat == "hunger") then
-				player:set_hp(player:get_hp() - 1)
+				player:set_hp(player:get_hp() - 1, "hunger_gone")
 				return
 			end
 			if (stat == "thirst") then
-				player:set_hp(player:get_hp() - 2)
+				player:set_hp(player:get_hp() - 2, "thirst_gone")
 				return
 			end
 		end
@@ -48,7 +48,7 @@ local function reduce_stat_sanity(stat)
 		local statstate = meta:get_int(stat)
 		if (statstate == nil) then return end
 		if (statstate == 0) then
-			player:set_hp(0)
+			player:set_hp(0, "insane")
 			return
 		end
 		local value = 1

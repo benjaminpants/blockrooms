@@ -43,7 +43,7 @@ light_source = 12,
 groups = {hand_breakable=2},
 --drop = "backrooms:glass_shard 3",
 on_dig = function(pos,node,player)
-    player:set_hp(player:get_hp() - 2)
+    player:set_hp(player:get_hp() - 2, "glass_break")
     minetest.node_dig(pos,node,player)
 end
 })
