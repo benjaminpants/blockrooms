@@ -105,6 +105,8 @@ dofile(default_path .. "/template.lua")
 
 dofile(default_path .. "/generation.lua")
 
+--dofile(default_path .. "/sfinv.lua")
+
 --add localizations for the following strings(mostly for the automatic localization creator) in the main file so its not scattered everywhere.
 
 S("@1 Floor", "")
