@@ -30,6 +30,7 @@ end
 blockrooms.hunger_max = 100
 blockrooms.thirst_max = 50
 blockrooms.sanity_max = 100
+blockrooms.exhaustion_max = 100
 
 blockrooms.floors.get_start_floor_y = function(starting_y)
     return 48 + (starting_y - 387) * 80 --why reduce the height? it allows for squeezing as many levels as possible into one world.
@@ -106,6 +107,8 @@ dofile(default_path .. "/template.lua")
 dofile(default_path .. "/generation.lua")
 
 dofile(default_path .. "/sfinv.lua")
+
+dofile(default_path .. "/exhaustion_hooks.lua")
 
 --add localizations for the following strings(mostly for the automatic localization creator) in the main file so its not scattered everywhere.
 

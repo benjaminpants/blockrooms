@@ -1,5 +1,5 @@
 local thirstdrain = 6
-local hungerdrain = 4
+local hungerdrain = 3
 local sanitydrain = 1
 
 
@@ -20,7 +20,7 @@ local function reduce_stat(stat)
 				return
 			end
 			if (stat == "thirst") then
-				player:set_hp(player:get_hp() - 2, "thirst_gone")
+				player:set_hp(player:get_hp() - math.random(1,3), "thirst_gone")
 				return
 			end
 		end
@@ -74,9 +74,17 @@ local function reducethirst()
 	reduce_stat("thirst")
 end
 
-local function reducehunger()
-    minetest.after(hungerdrain, reducehunger)
-	reduce_stat("hunger")
+local function attemptheal()
+    minetest.after(hungerdrain, attemptheal)
+	local players = minetest.get_connected_players()
+    for _, player in pairs(players) do
+		local hp = player:get_hp()
+		if (hp < 20) then
+			if (blockrooms.change_player_stat(player,"hunger",-2)) then
+				player:set_hp(math.min(hp + 2,20))
+			end
+		end
+	end
 end
 
 local function reducesanity()
@@ -103,7 +111,7 @@ end
 
 minetest.after(thirstdrain, reducethirst)
 
---minetest.after(hungerdrain, reducehunger)
+minetest.after(hungerdrain, attemptheal)
 
 minetest.after(sanitydrain, reducesanity)
 

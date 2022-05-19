@@ -1,3 +1,19 @@
+blockrooms.increment_exhaustion = function(player, amount)
+	local meta = player:get_meta()
+	local exhau = meta:get_int("exhaustion")
+	if ((exhau + amount) <= blockrooms.exhaustion_max) then
+		meta:set_int("exhaustion",exhau + amount)
+	else
+		meta:set_int("exhaustion",0)
+		blockrooms.change_player_stat(player,"hunger",math.ceil((((exhau + amount) - 100) * -1) / 2) - 1)
+	end
+
+
+end
+
+
+
+
 blockrooms.change_player_stat = function(player,stat,val) --the return value for this is whether or not it was able to actually use it
 	local isneg = val < 0
 	local meta = player:get_meta()
@@ -21,6 +37,9 @@ blockrooms.change_player_stat = function(player,stat,val) --the return value for
 		end
 	end
 	if (increase <= 0 and not isneg) then return false end
+	if (value + val <= 0 and val ~= 0) then
+		return false
+	end
 	meta:set_int(stat,value + increase)
 	hb.change_hudbar(player, "br_" .. stat, meta:get_int(stat))
     return true
@@ -50,6 +69,7 @@ minetest.register_on_newplayer(function(player)
 	meta:set_int("thirst",blockrooms.thirst_max)
 	meta:set_int("hunger",blockrooms.hunger_max)
 	meta:set_int("sanity",blockrooms.sanity_max)
+	meta:set_int("exhaustion",0)
 end)
 
 minetest.register_on_joinplayer(function(player)
@@ -66,6 +86,7 @@ minetest.register_on_dieplayer(function(player)
 	meta:set_int("thirst",blockrooms.thirst_max)
 	meta:set_int("hunger",blockrooms.hunger_max)
 	meta:set_int("sanity",blockrooms.sanity_max)
+	meta:set_int("exhaustion",0)
 	--get the floor and handle the ondeath event
 	local floor = blockrooms.floors.levels[meta:get_string("floor")]
 	if (floor == nil) then
