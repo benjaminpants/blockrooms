@@ -79,8 +79,8 @@ description = S("Block Light"),
 tiles = {"level0_ceiling_light.png"},
 paramtype = "light",
 light_source = 12,
-groups = {hand_breakable=2},
-drop = "blockrooms:glass_shard 3",
+groups = {hand_breakable=4,blunt=1},
+drop = "blockrooms:glass_shard 2",
 on_dig = function(pos,node,player)
     if (not minetest.check_player_privs(player, {creative=true})) then
         player:set_hp(player:get_hp() - 2, "glass_break")

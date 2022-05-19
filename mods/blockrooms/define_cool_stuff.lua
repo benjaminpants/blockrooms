@@ -104,6 +104,10 @@ end)
 
 minetest.register_on_respawnplayer(function(player)
 	local meta = player:get_meta()
+	meta:set_int("thirst",blockrooms.thirst_max)
+	meta:set_int("hunger",blockrooms.hunger_max)
+	meta:set_int("sanity",blockrooms.sanity_max)
+	meta:set_int("exhaustion",0)
 	blockrooms.floors.teleport_player_to_floor(player,meta:get_string("floor"))
 	return true
 end)

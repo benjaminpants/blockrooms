@@ -48,6 +48,9 @@ local function GenerateWall(startx, direction, seed, area, data, width,maxp, wal
 	local move_z = 0
 	local height = 4
 	local moss_chance = 5
+	if (blockrooms.rng_utils.percentage(2)) then --chance for a wall to be double mossy
+		moss_chance = 10
+	end
 	if (blockrooms.rng_utils.percentage(1)) then
 		height = 3 --those weird lower hanging walls are rare but do happen.
 	end
@@ -97,8 +100,10 @@ local function GenerateRoom(startx, seed, area, data, maxp)
 		GenerateWall(startx, "z", seed, area, data, 4, maxp, GenerateRandomWallData(true))
 	end
 
-	data[area:index(startx.x + 4, startx.y + 4, startx.z + 4)] = c_light
-	data[area:index(startx.x + 5, startx.y + 4, startx.z + 4)] = c_light
+	if (blockrooms.rng_utils.percentage(99)) then
+		data[area:index(startx.x + 4, startx.y + 4, startx.z + 4)] = c_light
+		data[area:index(startx.x + 5, startx.y + 4, startx.z + 4)] = c_light
+	end
 
     return data
 end
@@ -124,7 +129,7 @@ local main_generate_function = function(minp, maxp, seed, layer)
 	end
 
 	for i in area:iter( minp.x, minp.y + 1, minp.z, maxp.x, minp.y + 1, maxp.z) do
-		if (blockrooms.rng_utils.percentage(2)) then
+		if (blockrooms.rng_utils.percentage(3)) then
 			data[i] = c_carpet_wet
 		else
 			data[i] = c_carpet

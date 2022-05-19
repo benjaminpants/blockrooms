@@ -20,3 +20,13 @@ metal | any kind of metal
 iron | stuff that contains or is out of iron
 
 
+
+Mining Levels:
+1 - Very basic "tools", typically random objects, spoons, forks, glass shards, whatever.
+2 - Some actual rudemntry tools, poorly put together hammers, various objects taped together to form fake tools.
+3 - 
+4 -
+5 - 
+6 -
+7 -
+8 -

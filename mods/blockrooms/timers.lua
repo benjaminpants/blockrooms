@@ -57,6 +57,7 @@ local function reduce_stat_sanity(stat)
 		if (light == nil) then return end
 		if (light == 0) then
 			value = -1
+			blockrooms.increment_exhaustion(player,1)
 		end
 		if ((statstate + value) > blockrooms.sanity_max) then
 			meta:set_int(stat,blockrooms.sanity_max)
@@ -89,6 +90,11 @@ end
 
 local function reducesanity()
     minetest.after(sanitydrain, reducesanity)
+	local players = minetest.get_connected_players()
+	for _, player in pairs(players) do
+		if (player:get_hp() == 0) then return end
+		blockrooms.increment_exhaustion(player,4) --bring back hunger depletion over time, just make it very slow.
+	end
 	reduce_stat_sanity("sanity")
 end
 

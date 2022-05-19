@@ -48,8 +48,8 @@ minetest.register_item(":", {
 		full_punch_interval = 1.0,
 		max_drop_level = 0,
 		groupcaps = { --WE ARE NOT BOUND BY MINETEST GAME. WE CAN RIGHT THE WRONGS OF ITS SINS. 0 IS THE WEAKEST. STRONGNESS GOES UP AS THE NUMBER DOES.
-			hand_breakable = {times={[4]=9.00,[3]=7.00,[2]=4.00,[1]=1.40}, uses=0, maxlevel=4},
-			near_instant = {times={[4]=0.5,[3]=0.3,[2]=0.2,[1]=0.1}, uses=0, maxlevel=4}
+			hand_breakable = {times={[8]=8.5,[7]=7,[6]=5.75,[5]=4.5,[4]=3.75,[3]=3.25,[2]=2.00,[1]=1.40}, uses=0, maxlevel=4},
+			near_instant = {times={[8]=0.8,[7]=0.7,[6]=0.6,[5]=0.5,[4]=0.4,[3]=0.3,[2]=0.2,[1]=0.1}, uses=0, maxlevel=4}
 		},
 		damage_groups = {fleshy=1},
 	}
@@ -68,7 +68,7 @@ dofile(default_path .. "/sounds.lua")
 minetest.register_node("blockrooms:replaceme", {
 description = "REPLACE ME",
 tiles = {"blockrooms_replaceme.png"},
-groups = {hand_breakable=3},
+groups = {hand_breakable=2},
 sounds = blockrooms.node_sound_base_custom_place({},"wood")
 })
 
@@ -83,13 +83,13 @@ sounds = blockrooms.node_sound_base({},"tin")
 minetest.register_node("blockrooms:replaceme_2", {
 description = "REPLACE ME",
 tiles = {"blockrooms_replaceme.png^blockrooms_icon_sanity.png"},
-groups = {hand_breakable=1}
+groups = {hand_breakable=2}
 })
 
 minetest.register_node("blockrooms:replaceme_3", {
 description = "REPLACE ME",
 tiles = {"blockrooms_replaceme.png^blockrooms_icon_hunger.png"},
-groups = {hand_breakable=1}
+groups = {hand_breakable=2}
 })
 
 dofile(default_path .. "/random_utils.lua")
@@ -111,6 +111,8 @@ dofile(default_path .. "/sfinv.lua")
 dofile(default_path .. "/exhaustion_hooks.lua")
 
 dofile(default_path .. "/materials.lua")
+
+dofile(default_path .. "/tools.lua")
 
 --add localizations for the following strings(mostly for the automatic localization creator) in the main file so its not scattered everywhere.
 
