@@ -11,7 +11,8 @@ for i=1, #wallpapers do
     minetest.register_node("level0:" .. wallpapers[i][3], {
     description = S(wallpapers[i][2]),
     tiles = {"level0_wallpaper_top.png", "level0_wallpaper_top.png", wallpapers[i][1]},
-    groups = {papery=1}
+    groups = {papery=1},
+    sounds = blockrooms.node_sound_soft({},"paper")
     })
     minetest.register_node("level0:" .. wallpapers[i][3] .. "_moss", {
     description = S("Moss covered @1",S(wallpapers[i][2])),
@@ -28,12 +29,14 @@ for i=1, #wallpapers do
             local stack = ItemStack("blockrooms:moss")
             clicker:get_inventory():add_item("main",stack)
         end
-    end
+    end,
+    sounds = blockrooms.node_sound_soft({},"paper")
     })
     minetest.register_node("level0:trim_" .. wallpapers[i][3], {
         description = S("@1 Trim", S(wallpapers[i][2])),
         tiles = {"level0_wallpaper_top.png","level0_wallpaper_top.png",wallpapers[i][1] .. "^level0_trim.png"},
-        groups = {papery=1}
+        groups = {papery=1},
+        sounds = blockrooms.node_sound_soft({},"paper")
     })
 end
 
@@ -43,7 +46,8 @@ end
 minetest.register_node("level0:carpet", {
     description = S("Carpet"),
     tiles = {"level0_carpet.png"},
-    groups = {soft=1}
+    groups = {soft=1},
+    sounds = blockrooms.node_sound_soft({},"carpet")
 })
 
 minetest.register_node("level0:carpet_wet", {
@@ -60,7 +64,8 @@ minetest.register_node("level0:carpet_wet", {
             minetest.set_node(pos, {name="level0:carpet"})
 		end
     end,
-    groups = {soft=1}
+    groups = {soft=1},
+    sounds = blockrooms.node_sound_soft({},"carpet")
 })
 
 minetest.register_node("level0:ceiling_tile", {
@@ -70,14 +75,17 @@ minetest.register_node("level0:ceiling_tile", {
 })
 
 minetest.register_node("level0:light", {
-description = S("Fluorescent Tube Light"),
+description = S("Block Light"),
 tiles = {"level0_ceiling_light.png"},
 paramtype = "light",
 light_source = 12,
 groups = {hand_breakable=2},
 --drop = "backrooms:glass_shard 3",
 on_dig = function(pos,node,player)
-    player:set_hp(player:get_hp() - 2, "glass_break")
+    if (not minetest.check_player_privs(player, {creative=true})) then
+        player:set_hp(player:get_hp() - 2, "glass_break")
+    end
     minetest.node_dig(pos,node,player)
-end
+end,
+sounds = blockrooms.node_sound_base_shatter({},"glass")
 })
