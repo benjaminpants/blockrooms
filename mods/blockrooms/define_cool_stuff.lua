@@ -78,7 +78,7 @@ minetest.register_on_joinplayer(function(player)
 	hb.init_hudbar(player, "br_thirst", meta:get_int("thirst"), blockrooms.thirst_max, false)
 	hb.init_hudbar(player, "br_sanity", meta:get_int("sanity"), blockrooms.sanity_max, false)
 	player:hud_set_flags({minimap = false}) --the minimap literally doesnt work
-	player:hud_set_hotbar_itemcount(5)
+	player:hud_set_hotbar_itemcount(9)
 end)
 
 minetest.register_on_dieplayer(function(player)

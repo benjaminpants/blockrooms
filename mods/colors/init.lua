@@ -11,6 +11,7 @@ colors.colors = {
     {name="Magenta",id="mag",rgb="FF00FF"},
     {name="Purple",id="prp",rgb="8000FF"},
     {name="White",id="wht",rgb="FFFFFF"},
+    {name="Gray",id="gry",rgb="706F70"},
     {name="Black",id="blk",rgb="090909"}
 }
 

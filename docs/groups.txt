@@ -24,7 +24,7 @@ iron | stuff that contains or is out of iron
 Mining Levels:
 1 - Very basic "tools", typically random objects, spoons, forks, glass shards, whatever.
 2 - Some actual rudemntry tools, poorly put together hammers, various objects taped together to form fake tools.
-3 - 
+3 - Proper mechanical tools, real drills, wire cutters, proper pickaxes, so on.
 4 -
 5 - 
 6 -
