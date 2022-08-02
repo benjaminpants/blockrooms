@@ -27,3 +27,4 @@ They may not originate from the following repos, please create an issue incase a
 
 - stairs - [minetest-game](https://github.com/minetest/minetest_game)
 - sfinv - [minetest-game](https://github.com/minetest/minetest_game)
+- mtg_craftguide - [minetest-game](https://github.com/minetest/minetest_game)
