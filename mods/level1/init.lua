@@ -77,17 +77,17 @@ minetest.register_node("level1:concrete_painted", {
 
 minetest.register_node("level1:floodlight", {
 	description = S("Floodlight"),
-	tiles = { "level1_floodlight_topbot.png", "level1_floodlight_topbot.png", "level1_floodlight_side.png", "level1_floodlight_side.png", "level1_floodlight_back.png", "level1_floodlight.png" },
+	tiles = { "level1_floodlight.png", "level1_floodlight_back.png", "level1_floodlight_side.png", "level1_floodlight_side.png", "level1_floodlight_topbot.png", "level1_floodlight_topbot.png" },
 	drawtype = "nodebox",
 	is_ground_content = false,
 	sunlight_propagates = true,
     paramtype = "light",
     light_source = 14,
-    paramtype2 = "facedir",
+    paramtype2 = "wallmounted",
 	node_box = {
         type = "fixed",
         fixed = {
-            {-0.1250, -0.5000, 0.3750, 0.1250, 0.5000, 0.5000}
+            {-0.1250, -0.5000, -0.5000, 0.1250, -0.3750, 0.5000}
         }
     },
     sounds = blockrooms.node_sound_base_shatter({},"glass"),
