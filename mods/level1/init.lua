@@ -41,7 +41,8 @@ minetest.register_node("level1:orange_tape_sl", {
     sunlight_propagates = true,
     tiles = {"level1_tape_side_l.png^[multiply:#FF8000"},
     is_ground_content = false,
-    groups = {near_instant=1}
+    sounds = tape.node_sound_tape(),
+    groups = {near_instant=2, not_in_creative_inventory=1}
     --sounds = backrooms.node_sound_defaults()
 })
 
@@ -61,7 +62,8 @@ minetest.register_node("level1:orange_tape_sr", {
     sunlight_propagates = true,
     tiles = {"level1_tape_side_r.png^[multiply:#FF8000"},
     is_ground_content = false,
-    groups = {near_instant=1}
+    sounds = tape.node_sound_tape(),
+    groups = {near_instant=2, not_in_creative_inventory=1}
     --sounds = backrooms.node_sound_defaults()
 })
 

@@ -1,4 +1,17 @@
 
+tape = {}
+
+tape.node_sound_tape = function()
+	local table = {}
+	table.footstep = table.footstep or
+			{name = "tape_rip", gain = 0.8}
+	table.dug = table.dug or
+			{name = "tape_rip", gain = 1.0}
+	table.place = table.place or
+			{name = "tape_apply", gain = 1.0}
+	return table
+end
+
 local S = minetest.get_translator()
 
 minetest.register_craftitem("tape:tapeless_roll", {
@@ -12,7 +25,7 @@ colors.foreach(function(color)
     minetest.register_craftitem("tape:tape_" .. color.id, {
         description = S("@1 Tape Piece", color.name),
         inventory_image = "tape_tape_piece.png^[multiply:#" .. color.rgb,
-        groups = {tape_piece=1},
+        groups = {tape_piece=1,sticky = 1},
         stack_max = 16
     })
 
@@ -32,7 +45,8 @@ colors.foreach(function(color)
         sunlight_propagates = true,
         tiles = {"tape_tape_cross.png^[multiply:#" .. color.rgb},
         is_ground_content = false,
-        groups = {near_instant=1, not_in_creative_inventory=1}
+        sounds = tape.node_sound_tape(),
+        groups = {near_instant=2, not_in_creative_inventory=1}
         --sounds = backrooms.node_sound_defaults()
         })
 
