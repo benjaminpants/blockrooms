@@ -3,10 +3,25 @@ local S = minetest.get_translator()
 local default_path = minetest.get_modpath("level1")
 
 minetest.register_node("level1:ceiling", {
-    description = "Unbreakable",
-    tiles = {{name="level1_ceiling.png", align_style='world', scale=2}},
-    inventory_image = "[inventorycube{level1_ceiling.png{level1_ceiling.png{level1_ceiling.png",
+    description = S("Plaster Ceiling Tile (2x2)"),
+    tiles = {{name="level1_ceiling.png", align_style='world', scale=2},{name="level1_ceiling.png", align_style='world', scale=2},"level1_ceiling_1x1.png"},
+    drop = "level1:ceiling_single",
+    inventory_image = "[inventorycube{level1_ceiling_preview.png{level1_ceiling_preview.png{level1_ceiling_preview.png",
     sounds = blockrooms.node_sound_base({},"tin")
+})
+
+minetest.register_node("level1:ceiling_single", {
+    description = S("Plaster Ceiling Tile (1x1)"),
+    tiles = {"level1_ceiling_1x1.png"},
+    sounds = blockrooms.node_sound_base({},"tin")
+})
+
+minetest.register_craft({
+	output = "level1:ceiling 4",
+	type = "shapeless",
+	recipe = {
+		"level1:ceiling_single","level1:ceiling_single","level1:ceiling_single","level1:ceiling_single"
+	}
 })
 
 

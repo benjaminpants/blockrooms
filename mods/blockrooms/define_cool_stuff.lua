@@ -87,6 +87,7 @@ minetest.register_on_joinplayer(function(player)
 	hb.init_hudbar(player, "br_thirst", meta:get_int("thirst"), blockrooms.thirst_max, false)
 	hb.init_hudbar(player, "br_sanity", meta:get_int("sanity"), blockrooms.sanity_max, false)
 	player:hud_set_flags({minimap = false}) --the minimap literally doesnt work
+	blockrooms.default_setsky(player)
 	player:hud_set_hotbar_itemcount(9)
 end)
 
@@ -145,7 +146,7 @@ minetest.register_chatcommand("refill_all", {
 			return false, "Player not found"
 		end
 
-		if (minetest.check_player_privs("name", {statmanip = true})) then
+		if (not minetest.check_player_privs(name, {statmanip = true})) then
 			return false, "Missing privileges!"
 		end
 		local meta = player:get_meta()
@@ -159,5 +160,23 @@ minetest.register_chatcommand("refill_all", {
 		hb.change_hudbar(player, "br_sanity", blockrooms.sanity_max)
 		
 		return true, "Stats refilled."
+	end,
+})
+
+minetest.register_chatcommand("teleport_to_floor", {
+	params = "floor_id",
+	description = "Teleport the player to a specific floor",
+	func = function(name, param)
+		local player = minetest.get_player_by_name(name)
+		if not player then
+			return false, "Player not found"
+		end
+
+		if (not minetest.check_player_privs(name, {teleport = true})) then
+			return false, "Missing privileges!"
+		end
+		blockrooms.floors.teleport_player_to_floor(player,param)
+		
+		return true, "Teleported to floor!"
 	end,
 })

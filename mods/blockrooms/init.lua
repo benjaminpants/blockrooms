@@ -33,6 +33,16 @@ blockrooms.floors.get_start_floor_y = function(starting_y)
     return 48 + (starting_y - 387) * 80 --why reduce the height? it allows for squeezing as many levels as possible into one world.
 end
 
+blockrooms.default_setsky = function(player,color)
+	if (color == nil) then
+		color = "#050505"
+	end
+	player:set_sky({base_color = color,type="plain",clouds=false})
+	player:set_sun({visible = false})
+	player:set_moon({visible = false})
+	player:set_stars({visible = false})
+end
+
 minetest.register_on_mods_loaded(function()
 	table.sort(blockrooms.floors.level_ids, function(i1,i2)
 		return blockrooms.floors.levels[i1].floor_slot < blockrooms.floors.levels[i2].floor_slot
