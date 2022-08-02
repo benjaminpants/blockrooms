@@ -22,3 +22,8 @@ The above floors are JUST a list of floors that will be prioritized, if its empt
 
 This repo uses the General GNU license or something I still haven't figured out licencing quite yet
 
+# Mods are from the following repos
+They may not originate from the following repos, please create an issue incase any of these are wrong
+
+- stairs - [minetest-game](https://github.com/minetest/minetest_game)
+- sfinv - [minetest-game](https://github.com/minetest/minetest_game)

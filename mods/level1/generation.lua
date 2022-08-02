@@ -3,7 +3,7 @@ local c_concrete = minetest.get_content_id("blockrooms:concrete")
 local c_air = minetest.get_content_id("air")
 
 
-local test_function = function(minp, maxp, seed, layer)
+local generate_function = function(minp, maxp, seed, layer)
 
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip") 
 	local data = vm:get_data() 
@@ -41,7 +41,7 @@ local testdata = {
 	display_name = "Level 1", --The external name, you can localize it if you want or just leave it.
 	short_name = "1", --this should typically be the number, for instance if its Floor 0 this should be "0". Floor FUN would be "FUN" and whatnot.
 	floor_slot = 1, --used for sorting.
-	generator = test_function, --a generator function, the function is basically just a hook for register_on_generated, but only called on certain conditions
+	generator = generate_function, --a generator function, the function is basically just a hook for register_on_generated, but only called on certain conditions
 	level_type = "normal", --the type of the floor, supports "normal", "enigmatic", and "sublevel" at the moment. set a floor as enigmatic if it should be ignored by stuff like the hub.
 	--sublevel doesn't do anything at the moment, but will probably be used for sorting in the future.
 	layers_to_allocate = 1 --how many "layers" should be allocated? layers in this case mean how many mapchunks tall should this floor be?
