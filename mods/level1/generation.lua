@@ -49,10 +49,16 @@ local generate_function = function(minp, maxp, seed, layer)
 
 	local offset = 0
 
+	for i=1, math.random(1,3) do
+		minetest.place_schematic(vector.new(minp.x + math.random(0,70) + offset,minp.y + 2, minp.z + math.random(0,70)), default_path .. "/schems/level1_bridge_thing.mts", "random")
+	end
+
 	for j=1, 6 do
 		offset = offset + math.random(10, 15)
 		for i=1, 8 do
-			minetest.place_schematic(vector.new(minp.x + 4 + offset,minp.y + 2, minp.z + 4 + (i * 10)), default_path .. "/schems/level1_pillar.mts", 0)
+			if (math.random(1,20) ~= 1) then
+				minetest.place_schematic(vector.new(minp.x + 4 + offset,minp.y + 2, minp.z + 4 + (i * 10)), default_path .. "/schems/level1_pillar.mts", 0)
+			end
 		end
 	end
 
