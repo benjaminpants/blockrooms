@@ -1,5 +1,7 @@
 local S = minetest.get_translator()
 
+local default_path = minetest.get_modpath("level1")
+
 minetest.register_node("level1:ceiling", {
     description = "Unbreakable",
     tiles = {{name="level1_ceiling.png", align_style='world', scale=2}},
@@ -47,3 +49,33 @@ minetest.register_node("level1:orange_tape_sr", {
     groups = {near_instant=1}
     --sounds = backrooms.node_sound_defaults()
 })
+
+minetest.register_node("level1:concrete_painted", {
+    description = S("Concrete (Painted)"),
+    tiles = {"blockrooms_concrete.png","blockrooms_concrete.png","blockrooms_concrete.png","blockrooms_concrete.png","blockrooms_concrete.png","blockrooms_concrete.png^level1_f_paint.png"},
+    groups = minetest.registered_nodes["blockrooms:concrete"].groups,
+    drop = "blockrooms:concrete",
+    sounds = blockrooms.node_sound_base_custom_place({},"wood") --placeholder
+})
+
+minetest.register_node("level1:floodlight", {
+	description = S("Floodlight"),
+	tiles = { "level1_floodlight_topbot.png", "level1_floodlight_topbot.png", "level1_floodlight_side.png", "level1_floodlight_side.png", "level1_floodlight_back.png", "level1_floodlight.png" },
+	drawtype = "nodebox",
+	is_ground_content = false,
+	sunlight_propagates = true,
+    paramtype = "light",
+    light_source = 14,
+    paramtype2 = "facedir",
+	node_box = {
+        type = "fixed",
+        fixed = {
+            {-0.1250, -0.5000, 0.3750, 0.1250, 0.5000, 0.5000}
+        }
+    },
+    sounds = blockrooms.node_sound_base_shatter({},"glass"),
+	groups = { hand_breakable = 7},
+})
+
+
+dofile(default_path .. "/generation.lua")

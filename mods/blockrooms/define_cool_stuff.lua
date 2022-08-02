@@ -1,3 +1,12 @@
+minetest.register_privilege("statmanip", {
+description = "Allows manipulation of player stats (hunger/thirst/sanity, etc)",
+give_to_singleplayer = false,
+give_to_admin = true
+
+})
+
+
+
 blockrooms.increment_exhaustion = function(player, amount)
 	local meta = player:get_meta()
 	local exhau = meta:get_int("exhaustion")
@@ -126,3 +135,29 @@ blockrooms.use_item_plus_output = function(output, itemstack, player) --i would 
 	end
 
 end
+
+minetest.register_chatcommand("refill_all", {
+	params = "",
+	description = "Refill the stats of the player.",
+	func = function(name, param)
+		local player = minetest.get_player_by_name(name)
+		if not player then
+			return false, "Player not found"
+		end
+
+		if (minetest.check_player_privs("name", {statmanip = true})) then
+			return false, "Missing privileges!"
+		end
+		local meta = player:get_meta()
+		meta:set_int("thirst",blockrooms.thirst_max)
+		meta:set_int("hunger",blockrooms.hunger_max)
+		meta:set_int("sanity",blockrooms.sanity_max)
+		meta:set_int("exhaustion",0)
+
+		hb.change_hudbar(player, "br_hunger", blockrooms.hunger_max)
+		hb.change_hudbar(player, "br_thirst", blockrooms.thirst_max)
+		hb.change_hudbar(player, "br_sanity", blockrooms.sanity_max)
+		
+		return true, "Stats refilled."
+	end,
+})
