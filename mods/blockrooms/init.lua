@@ -135,6 +135,8 @@ dofile(default_path .. "/tools.lua")
 
 dofile(default_path .. "/nodes.lua")
 
+dofile(default_path .. "/crafting_recipes.lua")
+
 --add localizations for the following strings(mostly for the automatic localization creator) in the main file so its not scattered everywhere.
 
 S("@1 Floor", "")

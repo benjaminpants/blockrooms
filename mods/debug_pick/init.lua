@@ -8,7 +8,7 @@ minetest.register_tool("debug_pick:pick", {
 		full_punch_interval = 0.1,
 		max_drop_level = 3,
 		groupcaps = { --WE ARE NOT BOUND BY MINETEST GAME. WE CAN RIGHT THE WRONGS OF ITS SINS. 0 IS THE WEAKEST. STRONGNESS GOES UP AS THE NUMBER DOES.
-			debug_pick = {times={[3]=2}, uses=0, maxlevel=3}
+			debug_pick = {times={[3]=1}, uses=0, maxlevel=3}
 		},
 		damage_groups = {fleshy=9999},
 	}

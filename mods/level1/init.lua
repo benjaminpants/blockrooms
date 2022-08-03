@@ -67,13 +67,16 @@ minetest.register_node("level1:orange_tape_sr", {
     --sounds = backrooms.node_sound_defaults()
 })
 
-minetest.register_node("level1:concrete_painted", {
-    description = S("Concrete (Painted)"),
+minetest.register_node("level1:concrete_f_painted", {
+    description = S("Concrete (F Painted)"),
     tiles = {"blockrooms_concrete.png","blockrooms_concrete.png","blockrooms_concrete.png","blockrooms_concrete.png","blockrooms_concrete.png","blockrooms_concrete.png^level1_f_paint.png"},
-    groups = minetest.registered_nodes["blockrooms:concrete"].groups,
+    paramtype2 = "facedir",
     drop = "blockrooms:concrete",
-    sounds = blockrooms.node_sound_base_custom_place({},"wood") --placeholder
+    groups = minetest.registered_nodes["blockrooms:concrete"].groups,
+    sounds = minetest.registered_nodes["blockrooms:concrete"].sounds
 })
+
+minetest.register_alias("level1:concrete_painted", "level1:concrete_f_painted")
 
 minetest.register_node("level1:floodlight", {
 	description = S("Floodlight"),
@@ -94,5 +97,27 @@ minetest.register_node("level1:floodlight", {
 	groups = { hand_breakable = 7},
 })
 
+minetest.register_node("level1:concrete_lightb", {
+    description = S("Blueish Concrete"),
+    tiles = {"level1_floor_concrete.png"},
+    groups = minetest.registered_nodes["blockrooms:concrete"].groups,
+    sounds = minetest.registered_nodes["blockrooms:concrete"].sounds
+})
+
+minetest.register_craft({
+    type = "shapeless",
+    output = "level1:concrete_lightb 1",
+    recipe = {
+        "blockrooms:concrete"
+    }
+})
+
+minetest.register_craft({
+    type = "shapeless",
+    output = "blockrooms:concrete 1",
+    recipe = {
+        "level1:concrete_lightb"
+    }
+})
 
 dofile(default_path .. "/generation.lua")

@@ -3,9 +3,20 @@ local G = minetest.get_content_id
 local default_path = minetest.get_modpath("level1")
 
 local c_concrete = G("blockrooms:concrete")
+local c_concrete_light = G("level1:concrete_lightb")
+local c_concrete_wet = G("blockrooms:concrete_wet")
 local c_ceiling = G("level1:ceiling")
 local c_unbreakable = G("blockrooms:unbreakable")
 local c_air = G("air")
+
+local create_wall = function(area, data, minp, sx,sz,wx,wh, material)
+	for i in area:iter( minp.x + sx, minp.y + 2, minp.z + sz, minp.x + sx + wx, minp.y + 6, minp.z + sz + wh ) do 
+		if data[i] == c_air then
+			data[i] = material
+		end 
+	end
+
+end
 
 
 local generate_function = function(minp, maxp, seed, layer)
@@ -15,6 +26,13 @@ local generate_function = function(minp, maxp, seed, layer)
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
 
 	math.randomseed(seed)
+
+	local chunktype = "large_area"
+	if (math.random(1,2) == 1) then
+		chunktype = "hallways"
+	end
+
+
 	for i in area:iter( minp.x, minp.y, minp.z, maxp.x, minp.y, maxp.z ) do 
 		if data[i] == c_air then
 			data[i] = c_unbreakable
@@ -22,7 +40,15 @@ local generate_function = function(minp, maxp, seed, layer)
 	end
 	for i in area:iter( minp.x, minp.y + 1, minp.z, maxp.x, minp.y + 1, maxp.z ) do 
 		if data[i] == c_air then
-			data[i] = c_concrete
+			if (chunktype == "large_area") then
+				if (math.random(1,100) == 1) then
+					data[i] = c_concrete_wet
+				else
+					data[i] = c_concrete
+				end
+			else
+				data[i] = c_concrete_light
+			end
 		end 
 	end
 
@@ -37,7 +63,23 @@ local generate_function = function(minp, maxp, seed, layer)
 		end 
 	end
 
-	
+	local room_size = 5
+	local iterates = math.floor(80 / room_size) - 1
+
+	if (chunktype == "hallways") then
+		for j=0, iterates - 1 do --ensure there is ALWAYS a way out.
+			for i=0, iterates - 1 do
+				local which_wall_to_keep = math.random(1,2)
+				if (which_wall_to_keep == 1) then
+					create_wall(area, data, minp,(i * room_size), (j * room_size), room_size - 1, 0, c_concrete)
+				else
+					create_wall(area, data, minp,(i * room_size), (j * room_size), 0, room_size - 1, c_concrete)
+				end
+
+			end
+		end
+	end
+
 	
 	vm:set_data(data)
 
@@ -47,17 +89,31 @@ local generate_function = function(minp, maxp, seed, layer)
 
 	vm:write_to_map()
 
-	local offset = 0
 
-	for i=1, math.random(1,3) do
-		minetest.place_schematic(vector.new(minp.x + math.random(0,70) + offset,minp.y + 2, minp.z + math.random(0,70)), default_path .. "/schems/level1_bridge_thing.mts", "random")
+	if (chunktype == "large_area") then
+
+		local offset = 0
+
+		for i=1, math.random(1,3) do
+			minetest.place_schematic(vector.new(minp.x + math.random(0,70) + offset,minp.y + 2, minp.z + math.random(0,70)), default_path .. "/schems/level1_bridge_thing.mts", "random")
+		end
+
+		for j=1, 6 do
+			offset = offset + math.random(10, 15)
+			for i=0, 6 do
+				if (math.random(1,20) ~= 1) then
+					minetest.place_schematic(vector.new(minp.x + 4 + offset,minp.y + 2, minp.z + 4 + (i * 10)), default_path .. "/schems/level1_pillar.mts", 0)
+				end
+			end
+		end
+
 	end
 
-	for j=1, 6 do
-		offset = offset + math.random(10, 15)
-		for i=1, 8 do
-			if (math.random(1,20) ~= 1) then
-				minetest.place_schematic(vector.new(minp.x + 4 + offset,minp.y + 2, minp.z + 4 + (i * 10)), default_path .. "/schems/level1_pillar.mts", 0)
+	if (chunktype == "hallways") then
+		for j=0, iterates do
+			for i=0, iterates do
+				minetest.place_schematic(vector.new(minp.x + (i * room_size) + 2, minp.y + 6, minp.z + (j * room_size) + 2), default_path .. "/schems/level1_2x2_lights.mts", 0)
+				
 			end
 		end
 	end
