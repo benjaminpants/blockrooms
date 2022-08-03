@@ -67,13 +67,17 @@ local generate_function = function(minp, maxp, seed, layer)
 	local iterates = math.floor(80 / room_size) - 1
 
 	if (chunktype == "hallways") then
-		for j=0, iterates - 1 do --ensure there is ALWAYS a way out.
-			for i=0, iterates - 1 do
+		for j=0, iterates do --ensure there is ALWAYS a way out.
+			for i=0, iterates do
 				local which_wall_to_keep = math.random(1,2)
 				if (which_wall_to_keep == 1) then
-					create_wall(area, data, minp,(i * room_size), (j * room_size), room_size - 1, 0, c_concrete)
+					if (i ~= iterates) then
+						create_wall(area, data, minp,(i * room_size), (j * room_size), room_size - 1, 0, c_concrete)
+					end
 				else
-					create_wall(area, data, minp,(i * room_size), (j * room_size), 0, room_size - 1, c_concrete)
+					if (j ~= iterates) then
+						create_wall(area, data, minp,(i * room_size), (j * room_size), 0, room_size - 1, c_concrete)
+					end
 				end
 
 			end
