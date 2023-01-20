@@ -42,7 +42,7 @@ minetest.register_node("level1:orange_tape_sl", {
     tiles = {"level1_tape_side_l.png^[multiply:#FF8000"},
     is_ground_content = false,
     sounds = tape.node_sound_tape(),
-    groups = {near_instant=2, not_in_creative_inventory=1}
+    groups = {near_instant=2,}
     --sounds = backrooms.node_sound_defaults()
 })
 
@@ -63,7 +63,7 @@ minetest.register_node("level1:orange_tape_sr", {
     tiles = {"level1_tape_side_r.png^[multiply:#FF8000"},
     is_ground_content = false,
     sounds = tape.node_sound_tape(),
-    groups = {near_instant=2, not_in_creative_inventory=1}
+    groups = {near_instant=2}
     --sounds = backrooms.node_sound_defaults()
 })
 
@@ -76,26 +76,15 @@ minetest.register_node("level1:concrete_f_painted", {
     sounds = minetest.registered_nodes["blockrooms:concrete"].sounds
 })
 
-minetest.register_alias("level1:concrete_painted", "level1:concrete_f_painted")
-
-minetest.register_node("level1:floodlight", {
-	description = S("Floodlight"),
-	tiles = { "level1_floodlight.png", "level1_floodlight_back.png", "level1_floodlight_side.png", "level1_floodlight_side.png", "level1_floodlight_topbot.png", "level1_floodlight_topbot.png" },
-	drawtype = "nodebox",
-	is_ground_content = false,
-	sunlight_propagates = true,
-    paramtype = "light",
-    light_source = 14,
-    paramtype2 = "wallmounted",
-	node_box = {
-        type = "fixed",
-        fixed = {
-            {-0.1250, -0.5000, -0.5000, 0.1250, -0.3750, 0.5000}
-        }
-    },
-    sounds = blockrooms.node_sound_base_shatter({},"glass"),
-	groups = { hand_breakable = 7},
+minetest.register_node("level1:concrete_dirty", {
+    description = S("Concrete (Dirty)"),
+    tiles = {"blockrooms_concrete.png","blockrooms_concrete.png","level1_concrete_dirty_side.png"},
+    drop = "blockrooms:concrete",
+    groups = minetest.registered_nodes["blockrooms:concrete"].groups,
+    sounds = minetest.registered_nodes["blockrooms:concrete"].sounds
 })
+
+minetest.register_alias("level1:concrete_painted", "level1:concrete_f_painted")
 
 minetest.register_node("level1:concrete_lightb", {
     description = S("Blueish Concrete"),

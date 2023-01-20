@@ -2,6 +2,7 @@ local c_replaceable = minetest.get_content_id("blockrooms:replaceme")
 local c_air = minetest.get_content_id("air")
 
 
+--actually generate all the floors if the values match properly
 minetest.register_on_generated(function(minp, maxp, seed)
 	for i=1, #blockrooms.floors.level_ids do
 		--minetest.chat_send_all(i)

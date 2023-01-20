@@ -7,16 +7,18 @@ minetest.register_tool("blockrooms:sharp_glass_shard", {
 		full_punch_interval = 0.7,
 		max_drop_level=0,
 		groupcaps={
-			papery={times={[1]=1.5, [2]=3, [3]=4, [4]=5}, uses=6, maxlevel=1}
+			papery={times={[1]=1.5, [2]=3, [3]=4, [4]=5}, uses=1, maxlevel=1}
 		},
-		damage_groups = {fleshy=2},
+		damage_groups = {fleshy=1},
 	},
 })
 
+--you only need a single glass shard. for now. 
+--TODO: make it so punching with a glass shard creates a sharp glass shard
 minetest.register_craft({
 	output = "blockrooms:sharp_glass_shard 1",
 	type = "shapeless",
 	recipe = {
-		"blockrooms:glass_shard","blockrooms:glass_shard"
+		"blockrooms:glass_shard"
 	}
 })
