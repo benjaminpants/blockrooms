@@ -32,7 +32,10 @@ end
 
 local generateFloor_Func = function(minp, maxp, seed, layer, vm, emin, emax, data, area, offset)
 	local size = area:getExtent()
-
+	local chunktype = "standard"
+	if (math.random(1,16) == 1) then
+		chunktype = "large_area"
+	end
 
 	for x=1, size.x / 8 do
 		for z=1, size.z / 8 do
@@ -68,11 +71,6 @@ local generate_function = function(minp, maxp, seed, layer)
 
 	math.randomseed(seed)
 
-	local chunktype = "standard"
-	if (math.random(1,16) == 1) then
-		chunktype = "large_area"
-	end
-
 	for i in area:iter( minp.x, minp.y + 1, minp.z, maxp.x, minp.y + 1, maxp.z ) do 
 		if data[i] == c_air then
 			if (math.random(1,100) == 1) then
@@ -93,6 +91,7 @@ local generate_function = function(minp, maxp, seed, layer)
 	vm:write_to_map()
 
 	generateFloor_Func(minp, maxp, seed, layer, vm, emin, emax, data, area, 0)
+	generateFloor_Func(minp, maxp, seed, layer, vm, emin, emax, data, area, 6)
 	
 
 end
