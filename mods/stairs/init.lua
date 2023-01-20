@@ -13,13 +13,6 @@ local S = minetest.get_translator("stairs")
 -- Same as S, but will be ignored by translation file update scripts
 local T = S
 
-
--- Register aliases for new pine node names
-
-minetest.register_alias("stairs:stair_pinewood", "stairs:stair_pine_wood")
-minetest.register_alias("stairs:slab_pinewood", "stairs:slab_pine_wood")
-
-
 -- Get setting for replace ABM
 
 local replace = minetest.settings:get_bool("enable_stairs_replace_abm")
