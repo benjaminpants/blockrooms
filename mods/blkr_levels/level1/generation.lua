@@ -33,7 +33,7 @@ end
 local generateFloor_Func = function(minp, maxp, seed, layer, vm, emin, emax, data, area, offset)
 	local size = area:getExtent()
 	local chunktype = "standard"
-	if (math.random(1,16) == 1) then
+	if (math.random(1,12) == 1) then
 		chunktype = "large_area"
 	end
 
@@ -92,6 +92,16 @@ local generate_function = function(minp, maxp, seed, layer)
 
 	generateFloor_Func(minp, maxp, seed, layer, vm, emin, emax, data, area, 0)
 	generateFloor_Func(minp, maxp, seed, layer, vm, emin, emax, data, area, 6)
+
+	data = vm:get_data() 
+
+	for i in area:iter( minp.x, minp.y + 1, minp.z, maxp.x, minp.y + 2 + 6, maxp.z ) do 
+		if data[i] == c_concrete then
+			if (math.random(1,100) == 1) then
+				data[i] = c_concrete_wet
+			end
+		end 
+	end
 	
 
 end
