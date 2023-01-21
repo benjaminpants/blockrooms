@@ -117,6 +117,10 @@ local main_generate_function = function(minp, maxp, seed, layer)
 	local data = vm:get_data() 
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
 
+	for i in area:iter( minp.x, minp.y, minp.z, maxp.x, minp.y, maxp.z) do 
+		data[i] = c_unbreakable
+	end
+
 	minp.y = minp.y + 2 --shift the entire level up by two?
 
 	math.randomseed(seed)
