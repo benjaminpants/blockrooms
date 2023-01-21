@@ -11,6 +11,17 @@ blockrooms.rng_utils = {}
 
 dofile(default_path .. "/api/floors.lua")
 
+blockrooms.floors.get_player_on_floor = function(floorname)
+	local players = minetest.get_connected_players()
+	local players_on_floor = {}
+	for i=1, #players do
+		if (players[i]:get_meta():get_string("floor") == floorname) then
+			table.insert(players_on_floor,players[i])
+		end
+	end
+	return players_on_floor
+end
+
 --some game constants
 blockrooms.hunger_max = 100
 blockrooms.thirst_max = 80 --the old thirst value was 50 which was. STUPID. to say the least.

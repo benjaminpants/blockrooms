@@ -31,7 +31,7 @@ blockrooms.default_setsky = function(player,color)
 end
 
 --assigns all level IDS to valid floors
---TODO: make it so this saves to a config file in the world so when new levels are added they don't completely die
+--TODO: make it so this saves the starting floors starting y in a config file in the world so when new levels are added they don't spawn in completely the wrong spot
 minetest.register_on_mods_loaded(function()
 	table.sort(blockrooms.floors.level_ids, function(i1,i2)
 		return blockrooms.floors.levels[i1].floor_slot < blockrooms.floors.levels[i2].floor_slot
@@ -42,5 +42,14 @@ minetest.register_on_mods_loaded(function()
 		data.starting_y = blockrooms.floors.next_valid_y
 	
 		blockrooms.floors.next_valid_y = blockrooms.floors.next_valid_y + data.layers_to_allocate
+	end
+end)
+
+minetest.register_globalstep(function(dtime)
+	for i=1, #blockrooms.floors.level_ids do
+		local data = blockrooms.floors.levels[blockrooms.floors.level_ids[i]]
+		if (data.globalstep ~= nil) then
+			data.globalstep(dtime) --run the floors globalstep
+		end
 	end
 end)

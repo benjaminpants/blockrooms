@@ -2,6 +2,8 @@ local S = minetest.get_translator()
 
 local G = minetest.get_content_id --to shorten code for the sake of my sanity.
 
+local default_path = minetest.get_modpath("level0")
+
 local c_unbreakable = G("blockrooms:unbreakable")
 
 local c_carpet = G("level0:carpet")
@@ -115,6 +117,8 @@ local main_generate_function = function(minp, maxp, seed, layer)
 	local data = vm:get_data() 
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
 
+	minp.y = minp.y + 2 --shift the entire level up by two?
+
 	math.randomseed(seed)
 
 	
@@ -152,7 +156,15 @@ local main_generate_function = function(minp, maxp, seed, layer)
 	
 	vm:calc_lighting() 
 
-	vm:write_to_map() 
+	vm:write_to_map()
+
+	--slap in some random holes to leave floor 0
+
+	for i=1, math.random(4,24) do
+		minetest.place_schematic(vector.new(minp.x + math.random(0,76),minp.y, minp.z + math.random(0,76)), default_path .. "/schems/l0_carpet_fall.mts", "0")
+	end
+
+	minp.y = minp.y - 2
 
 end
 
@@ -166,10 +178,20 @@ blockrooms.floors.add_level({
 	generator = main_generate_function, --a generator function, the function is basically just a hook for register_on_generated, but only called on certain conditions
 	level_type = "normal", --the type of the floor, supports "normal", "enigmatic", and "sublevel" at the moment. set a floor as enigmatic if it should be ignored by stuff like the hub.
 	--sublevel doesn't do anything at the moment, but will probably be used for sorting in the future.
-	spawn_offset = 2,
-	layers_to_allocate = 1 --how many "layers" should be allocated? layers in this case mean how many mapchunks tall should this floor be?
+	spawn_offset = 4,
+	layers_to_allocate = 1, --how many "layers" should be allocated? layers in this case mean how many mapchunks tall should this floor be?
 	--on_player_death = function(player) --a function that is called when a player dies on this floor, return true to do the default death handling, false to prevent it
 	--on_player_spawn = function(player,previous_floor) --previous_floor is the internal name of the previous floor the player was on before being sent to this one, if left blank the default spawn code will be used.
+	globalstep = function(dtime) --if the player commits the CLIP send them to level_1
+		local players = blockrooms.floors.get_player_on_floor("level_0")
+		for i=1, #players do
+			local ply = players[i]
+			local pos = ply:get_pos()
+			if (pos.y <= (blockrooms.floors.get_floor_y("level_0",true) - 3)) then
+				blockrooms.floors.teleport_player_to_floor(ply,"level_1")
+			end
+		end
+	end
 })
 
 blockrooms.default_floor = "level_0" 

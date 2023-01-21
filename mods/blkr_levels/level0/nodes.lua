@@ -4,6 +4,7 @@ local S = minetest.get_translator()
 
 
 --this isnt for people to add extra wallpapers its just to avoid a ton of copy and pasted code
+--i mean. you can add more wall papers here but i doubt its a good idea to redist a modified version of level 0
 local wallpapers = {{"level0_wallpaper.png","Arrow Wallpaper", "arrow_wallpaper"}, {"level0_wallpaper_dots.png","Dots Wallpaper", "dots_wallpaper"}, {"level0_wallpaper_lines.png","Stripes Wallpaper", "stripes_wallpaper"}}
 
 
@@ -94,6 +95,14 @@ minetest.register_node("level0:carpet", {
     description = S("Carpet"),
     tiles = {"level0_carpet.png"},
     groups = {soft=1},
+    sounds = blockrooms.node_sound_soft({},"carpet")
+})
+
+minetest.register_node("level0:carpet_clip", {
+    description = S("Carpet (Clippable"),
+    tiles = {"level0_carpet.png"},
+    groups = {soft=1},
+    walkable = false,
     sounds = blockrooms.node_sound_soft({},"carpet")
 })
 

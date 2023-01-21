@@ -54,17 +54,33 @@ blockrooms.change_player_stat = function(player,stat,val) --the return value for
     return true
 end
 
+blockrooms.floors.get_floor_y_from_data = function(data,include_offset)
+	local cur = blockrooms.floors.get_start_floor_y(data.starting_y)
+	local off = 0
+	if (include_offset) then
+		off = (data.spawn_offset or 1)
+	end
+	return cur + off
+end
+
+blockrooms.floors.get_floor_y = function(floor_id,include_offset)
+	return blockrooms.floors.get_floor_y_from_data(blockrooms.floors.levels[floor_id],include_offset)
+end
+
 blockrooms.floors.teleport_player_to_floor = function(player, floor)
 	local meta = player:get_meta()
-	meta:set_string("floor",floor)
 	local data = blockrooms.floors.levels[floor]
-	if (data == nil) then return end
+	if (data == nil) then return false end
+	meta:set_string("floor",floor) --only send the player there if the data actually exists
+
 	--call the teleport function for the specific floor if it exists
 	if (data.on_player_spawn ~= nil) then
 		data.on_player_spawn(player)
 	else
-		player:set_pos(vector.new(math.random(-8000,8000),blockrooms.floors.get_start_floor_y(data.starting_y) + (data.spawn_offset or 1),math.random(-8000,8000)))
+		player:set_pos(vector.new(math.random(-8000,8000),blockrooms.floors.get_floor_y_from_data(data,true),math.random(-8000,8000)))
 	end
+
+	return true
 
 end
 

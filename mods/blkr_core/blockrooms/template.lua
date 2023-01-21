@@ -51,6 +51,7 @@ local testdata = {
 	--spawn_offset = 1 --how high the player is spawned above the "ground" level
 	--on_player_death = function(player) --a function that is called when a player dies on this floor, return true to do the default death handling, false to prevent it
 	--on_player_spawn = function(player,previous_floor) --previous_floor is the internal name of the previous floor the player was on before being sent to this one, if left blank the default spawn code will be used.
+	--globalstep = function(dtime) --the global step function to be called on this floor
 }
 
 blockrooms.floors.add_level(testdata)

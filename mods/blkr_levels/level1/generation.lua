@@ -1,5 +1,7 @@
 local G = minetest.get_content_id
 
+local S = minetest.get_translator()
+
 local default_path = minetest.get_modpath("level1")
 
 local c_concrete = G("blockrooms:concrete")
@@ -8,15 +10,6 @@ local c_concrete_wet = G("blockrooms:concrete_wet")
 local c_ceiling = G("level1:ceiling")
 local c_unbreakable = G("blockrooms:unbreakable")
 local c_air = G("air")
-
-local create_wall = function(area, data, minp, sx,sz,wx,wh, material)
-	for i in area:iter( minp.x + sx, minp.y + 2, minp.z + sz, minp.x + sx + wx, minp.y + 6, minp.z + sz + wh ) do 
-		if data[i] == c_air then
-			data[i] = material
-		end 
-	end
-
-end
 
 local schematic_list_empty_random = {"/schems/l1_pillar_solo.mts"}
 
@@ -116,7 +109,7 @@ end
 
 local testdata = {
 	internal_name = "level_1", --the internal name used by various internal functions. this should not change. ever. please dont change this after you release your mod.
-	display_name = "Level 1", --The external name, you can localize it if you want or just leave it.
+	display_name = S("Level @1", "1"), --The external name, you can localize it if you want or just leave it.
 	short_name = "1", --this should typically be the number, for instance if its Floor 0 this should be "0". Floor FUN would be "FUN" and whatnot.
 	floor_slot = 1, --used for sorting.
 	generator = generate_function, --a generator function, the function is basically just a hook for register_on_generated, but only called on certain conditions
