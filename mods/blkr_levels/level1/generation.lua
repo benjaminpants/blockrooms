@@ -45,8 +45,8 @@ local generateFloor_Func = function(minp, maxp, seed, layer, vm, emin, emax, dat
 		chunktype = "large_area"
 	end
 
-	local import_x = math.random(1,floor(size.x / 8))
-	local import_y = math.random(1,floor(size.z / 8))
+	local import_x = math.random(1,math.floor(size.x / 8))
+	local import_y = math.random(1,math.floor(size.z / 8))
 
 	for x=1, size.x / 8 do
 		for z=1, size.z / 8 do

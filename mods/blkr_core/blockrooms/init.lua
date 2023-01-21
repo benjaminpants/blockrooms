@@ -104,6 +104,8 @@ dofile(default_path .. "/nodes/stones.lua")
 
 dofile(default_path .. "/nodes/lights.lua")
 
+dofile(default_path .. "/nodes/decos.lua")
+
 dofile(default_path .. "/crafting_recipes.lua")
 
 --add localizations for the following strings(mostly for the automatic localization creator) in the main file so its not scattered everywhere.
