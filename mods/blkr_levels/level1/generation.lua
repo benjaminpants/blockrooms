@@ -32,7 +32,7 @@ leveldata.structures.important = {"/schems/l1_staircase.mts"}
 
 leveldata.structures.corners = {"/schems/l1_corners_base.mts","/schems/l1_corners_lighted.mts","/schems/l1_corners_lightplate.mts","/schems/l1_corners_open.mts","/schems/l1_corners_plated.mts"}
 
-leveldata.structures.sides = {"/schems/l1_side_door.mts","/schems/l1_side_lights.mts","/schems/l1_side_panel.mts","/schems/l1_side_simple.mts"}
+leveldata.structures.sides = {"/schems/l1_side_door.mts","/schems/l1_side_lights.mts","/schems/l1_side_panel.mts","/schems/l1_side_simple.mts","/schems/l1_side_door_split.mts"}
 
 for i=1, 2 do
 	table.insert(leveldata.structures.empty,"/schems/l1_empty_spot.mts")

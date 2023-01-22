@@ -109,4 +109,62 @@ minetest.register_craft({
     }
 })
 
+blockrooms.storage.create_storage({
+    node_id = "level1:crate_special",
+    node_definition = {
+        description = S("Crate (Level 1)"),
+        tiles = {"blockrooms_crate.png"},
+        mesh = "crate.obj",
+        drawtype = "mesh",
+        groups = {},
+        sounds = blockrooms.node_sound_base_custom_place({},"wood"),
+        allow_metadata_inventory_put = function()
+            return 0 --no
+        end
+    },
+    storage_size = {4,1},
+    gui_pos_offset = {2,2}
+})
+
+local lootTable = {
+    max_items_range = {min = 1, max = 6},
+    data = {
+        {value={
+            overrideFunc = function()
+                return {
+                    name="tape:tape_" .. colors.chooserandom().id,
+                    item_range = {min = 1, max = 2},
+                    max_duplicates = 1
+                }
+            end,
+            name="tape_part"
+        },
+        weight=10},
+        {value={
+            name="tape:tapeless_roll",
+            item_range = {min = 1, max = 3},
+            max_duplicates = 2
+        },
+        weight=50},
+        {value={
+            name="blockrooms:paper",
+            item_range = {min = 1, max = 3},
+            max_duplicates = 4
+        },
+        weight=70}
+    }
+}
+
+loot_tables.AddLootTable("l1_crate",lootTable)
+
+local cs = minetest.registered_nodes["level1:crate_special"]
+
+local oldoc = cs.on_construct
+
+cs.on_construct = function(pos)
+    oldoc(pos)
+    loot_tables.FillInventory(minetest.get_meta(pos):get_inventory(),"l1_crate")
+end
+
+
 dofile(default_path .. "/generation.lua")

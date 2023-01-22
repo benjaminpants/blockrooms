@@ -20,8 +20,23 @@ doors.example_door_data = {
     max_hear_distance = 8,
     open_sound = {name="wooden_door_open"},
     close_sound = {name="wooden_door_close"},
-    knock_sound = {name="door_wood_knock"}
+    knock_sound = {name="wooden_door_knock"}
 }
+
+--[[doors.example_door_data_again = {
+    id = "m_doors:test_door_handle",
+    name = S("Example Door With Handle"),
+    texture = "m_doors_handle_template.png",
+    wield_image = "m_doors_template_item.png",
+    model = "door_handle",
+    sounds = {},--blockrooms.node_sound_base_custom_place({},"wood"),
+    groups = {},
+    boxes = doors.boxes.OneByTwo,
+    max_hear_distance = 8,
+    open_sound = {name="wooden_door_open"},
+    close_sound = {name="wooden_door_close"},
+    knock_sound = {name="wooden_door_knock"}
+}--]]
 
 
 doors.create_door = function(doordata)
@@ -75,6 +90,7 @@ doors.create_door = function(doordata)
         selection_box = doordata.boxes.opened,
         collision_box = doordata.boxes.opened,
         sounds = doordata.sounds,
+        drop = closed_id,
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
             local n = minetest.get_node(pos)
             minetest.swap_node(pos, {name=closed_id, param2=n.param2})
@@ -89,3 +105,5 @@ doors.create_door = function(doordata)
 end
 
 doors.create_door(doors.example_door_data)
+
+--doors.create_door(doors.example_door_data_again)

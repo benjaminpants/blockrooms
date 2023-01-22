@@ -9,7 +9,11 @@ blockrooms.default_floor = "example_floor"
 
 blockrooms.rng_utils = {}
 
+dofile(default_path .. "/sounds.lua")
+
 dofile(default_path .. "/api/floors.lua")
+
+dofile(default_path .. "/api/chests.lua")
 
 blockrooms.floors.get_player_on_floor = function(floorname)
 	local players = minetest.get_connected_players()
@@ -48,8 +52,6 @@ hb.register_hudbar("br_thirst", 0xFFFFFF, "Thirst", { icon = "blockrooms_icon_th
 hb.register_hudbar("br_hunger", 0xFFFFFF, "Hunger", { icon = "blockrooms_icon_hunger.png", bgicon = "blockrooms_bgicon_hunger.png", bar = "blockrooms_bar_hunger.png"}, blockrooms.hunger_max, blockrooms.hunger_max, false)
 
 hb.register_hudbar("br_sanity", 0xFFFFFF, "Sanity", { icon = "blockrooms_icon_sanity.png", bgicon = "blockrooms_bgicon_sanity.png", bar = "blockrooms_bar_sanity.png"}, blockrooms.sanity_max, blockrooms.sanity_max, false)
-
-dofile(default_path .. "/sounds.lua")
 
 minetest.register_node("blockrooms:replaceme", {
 description = "REPLACE ME",
