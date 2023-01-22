@@ -15,6 +15,9 @@ dofile(default_path .. "/api/floors.lua")
 
 dofile(default_path .. "/api/chests.lua")
 
+dofile(default_path .. "/api/liquids.lua")
+
+
 blockrooms.floors.get_player_on_floor = function(floorname)
 	local players = minetest.get_connected_players()
 	local players_on_floor = {}
@@ -109,6 +112,8 @@ dofile(default_path .. "/nodes/lights.lua")
 dofile(default_path .. "/nodes/decos.lua")
 
 dofile(default_path .. "/crafting_recipes.lua")
+
+dofile(default_path .. "/liquid_definitions.lua")
 
 --add localizations for the following strings(mostly for the automatic localization creator) in the main file so its not scattered everywhere.
 

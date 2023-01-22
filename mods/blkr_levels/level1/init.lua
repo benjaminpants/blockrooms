@@ -151,7 +151,43 @@ local lootTable = {
             item_range = {min = 1, max = 3},
             max_duplicates = 4
         },
-        weight=70}
+        weight=60},
+        {value={
+            name="blockrooms:plastic_bottle_dirty_almondwater",
+            item_range = {min = 1, max = 1},
+            max_duplicates = 1
+        },
+        weight=70},
+        {value={
+            name="blockrooms:empty_plastic_bottle",
+            item_range = {min = 1, max = 1},
+            max_duplicates = 2
+        },
+        weight=76},
+        {value={
+            name="blockrooms:chips",
+            item_range = {min = 1, max = 4},
+            max_duplicates = 1
+        },
+        weight=69},
+        {value={
+            name="blockrooms:money_penny",
+            item_range = {min = 1, max = 21},
+            max_duplicates = 4
+        },
+        weight=49},
+        {value={
+            name="blockrooms:money_quarter",
+            item_range = {min = 1, max = 11},
+            max_duplicates = 4
+        },
+        weight=48},
+        {value={
+            name="blockrooms:money_dollar",
+            item_range = {min = 1, max = 3},
+            max_duplicates = 2
+        },
+        weight=46}
     }
 }
 

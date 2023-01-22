@@ -2,10 +2,6 @@ local S = minetest.get_translator()
 
 blockrooms.storage = {}
 
-local S = minetest.get_translator()
-
-blockrooms.storage = {}
-
 blockrooms.storage.example_storage = {
     node_id = "blockrooms:chest_test2",
     node_definition = {

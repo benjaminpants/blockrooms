@@ -15,3 +15,20 @@ minetest.register_craftitem("blockrooms:iron_plate", {
     description = S("Iron Plate"),
     inventory_image = "blockrooms_iron_plate.png"
 })
+
+--useless unless you can melt them down
+
+minetest.register_craftitem("blockrooms:money_penny", {
+    description = S("Pennies"),
+    inventory_image = "blockrooms_pennies.png"
+})
+
+minetest.register_craftitem("blockrooms:money_quarter", {
+    description = S("Quarters"),
+    inventory_image = "blockrooms_quarters.png"
+})
+
+minetest.register_craftitem("blockrooms:money_dollar", {
+    description = S("Dollar Bill"),
+    inventory_image = "blockrooms_dollar.png"
+})
