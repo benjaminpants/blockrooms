@@ -24,6 +24,17 @@ minetest.register_craftitem("blockrooms:chips", {
 	end
 })
 
+minetest.register_craftitem("blockrooms:bandaid", {
+    description = S("Bandaid"),
+    inventory_image = "blockrooms_bandaid.png",
+	on_use = function(itemstack, player, pointed_thing)
+		if (blockrooms.change_player_stat(player,"health",3)) then
+			itemstack:take_item(1)
+		end
+		return itemstack
+	end
+})
+
 
 minetest.register_craftitem("blockrooms:empty_plastic_bottle", {
     description = S("Plastic Bottle"),

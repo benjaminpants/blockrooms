@@ -133,13 +133,13 @@ local lootTable = {
             overrideFunc = function()
                 return {
                     name="tape:tape_" .. colors.chooserandom().id,
-                    item_range = {min = 1, max = 2},
-                    max_duplicates = 1
+                    item_range = {min = 1, max = 3},
+                    max_duplicates = 3
                 }
             end,
             name="tape_part"
         },
-        weight=10},
+        weight=50},
         {value={
             name="tape:tapeless_roll",
             item_range = {min = 1, max = 3},
@@ -187,7 +187,13 @@ local lootTable = {
             item_range = {min = 1, max = 3},
             max_duplicates = 2
         },
-        weight=46}
+        weight=46},
+        {value={
+            name="blockrooms:bandaid",
+            item_range = {min = 1, max = 3},
+            max_duplicates = 1
+        },
+        weight=10}
     }
 }
 

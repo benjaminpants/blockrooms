@@ -71,6 +71,13 @@ local generateFloor_Func = function(minp, maxp, seed, layer, vm, emin, emax, dat
 		end
 	end
 
+	for i=1, math.random(3,15) do
+		local attempted_pos = vector.new(math.random(minp.x,maxp.x),minp.y + 2 + offset, math.random(minp.z,maxp.z))
+		if (minetest.get_node(attempted_pos).name == "air") then
+			minetest.set_node(attempted_pos, {name = "level1:crate_special"})
+		end
+	end
+
 end
 
 

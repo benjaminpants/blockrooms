@@ -23,7 +23,12 @@ end
 
 
 
-blockrooms.change_player_stat = function(player,stat,val) --the return value for this is whether or not it was able to actually use it
+blockrooms.change_player_stat = function(player,stat,val,reason) --the return value for this is whether or not it was able to actually use it
+	if (stat == "health") then
+		local hp_pre_change = player:get_hp()
+		player:set_hp(player:get_hp() + val, reason)
+		return hp_pre_change ~= player:get_hp()
+	end
 	local isneg = val < 0
 	local meta = player:get_meta()
 	local value = meta:get_int(stat)
