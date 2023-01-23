@@ -48,7 +48,7 @@ colors.foreach(function(color)
         sounds = tape.node_sound_tape(),
         groups = {near_instant=2, not_in_creative_inventory=1}
         --sounds = backrooms.node_sound_defaults()
-        })
+    })
 
 
     minetest.register_craftitem("tape:tape_roll_" .. color.id, {

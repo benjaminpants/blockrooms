@@ -9,6 +9,7 @@ choppy | used for logs or other wood like objects, you likely need an axe.
 cracky | used for stone or stone like stuff
 blunt | used for nodes that need blunt force to be mined, this is used for most ceiling tiles.
 soft | wool or what not. Not automatically breakable by hand, more effective with shears and shearlike objects
+near_instant | breakable by hand, but its really fast. has an extra 9 mining level
 teary | similar to hand_breakable but the hand is really, really slow. gloves are best for these sorts of materials.
 
 Here are the item groups:
@@ -30,3 +31,4 @@ Mining Levels:
 6 - 
 7 -
 8 - Anomalous artifacts ONLY
+9 - Shouldn't be used for much of anything, mostly used for near_instant

@@ -120,6 +120,18 @@ blockrooms.storage.create_storage({
         sounds = blockrooms.node_sound_base_custom_place({},"wood"),
         allow_metadata_inventory_put = function()
             return 0 --no
+        end,
+        on_metadata_inventory_take = function(pos, listname, index, stack, player)
+            local invref = minetest.get_meta(pos):get_inventory()
+            if (invref:is_empty("main")) then
+                minetest.sound_play({name="blockrooms_wood_explode"}, {
+                    pos = pos,
+                    gain = 1.0,
+                    max_hear_distance = 16,
+                    pitch = 1 + (math.random(-3,3) * 0.01)
+                }, true)
+                minetest.set_node(pos, {name="air"}) --todo make this actually look good
+            end
         end
     },
     storage_size = {4,1},
@@ -148,10 +160,16 @@ local lootTable = {
         weight=50},
         {value={
             name="blockrooms:paper",
-            item_range = {min = 1, max = 3},
+            item_range = {min = 1, max = 2},
+            max_duplicates = 1
+        },
+        weight=40},
+        {value={
+            name="blockrooms:pin",
+            item_range = {min = 1, max = 1},
             max_duplicates = 4
         },
-        weight=60},
+        weight=50},
         {value={
             name="blockrooms:plastic_bottle_dirty_almondwater",
             item_range = {min = 1, max = 1},

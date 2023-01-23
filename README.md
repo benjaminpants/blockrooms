@@ -7,19 +7,19 @@ It's version of the backrooms is primarily based off the [wikidot](http://backro
 
 
 
-## Currently Implemented Floors
-- Floor 0
+## Currently Implemented Levels
+- Level 0
 
-## WIP Floors
-- Floor 1
+## WIP Levels
+- Level 1
 
-## Currently Planned Floors for recent development
-- Floor 2
-- Floor 3
-- Floor 4
-- Floor FUN
+## Currently Planned Levels for recent development
+- Level 2
+- Level 3
+- Level 4
+- Level FUN
 
-The above floors are JUST a list of floors that will be prioritized, if its empty, feel free to create PRs that have any floor of your desire, otherwise, I'd appreciate it if you focused on getting the above floors implemented.
+The above levels are JUST a list of levels that will be prioritized, if its empty, feel free to create PRs that have any level of your desire, otherwise, I'd appreciate it if you focused on getting the above levels implemented.
 
 This repo uses the General GNU license or something I still haven't figured out licencing quite yet
 

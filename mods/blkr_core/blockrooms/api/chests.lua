@@ -38,8 +38,7 @@ blockrooms.storage.create_storage = function(storage_data)
         meta:from_table({
             inventory = inventor,
             fields = {
-                formspec = "size[8,9]list[context;main;" .. off_x .. "," .. off_y .. ";" .. size_x .. "," .. size_y .. ";]list[current_player;main;0,5;8,4;]",
-                infotext = data.node_definition.description
+                formspec = "size[8,9]list[context;main;" .. off_x .. "," .. off_y .. ";" .. size_x .. "," .. size_y .. ";]list[current_player;main;0,5;8,4;]"
             }
         })
     end

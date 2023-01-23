@@ -11,8 +11,9 @@ colors.colors = {
     {name="Magenta",id="mag",rgb="FF00FF"},
     {name="Purple",id="prp",rgb="8000FF"},
     {name="White",id="wht",rgb="FFFFFF"},
-    {name="Gray",id="gry",rgb="706F70"},
-    {name="Black",id="blk",rgb="090909"}
+    {name="Gray",id="gry",rgb="999999"},
+    {name="Black",id="blk",rgb="090909"},
+    {name="Brown",id="brn",rgb="7A4025"}
 }
 
 colors.hextorgb = function(hex) --grabbed from https://gist.github.com/jasonbradley/4357406 with minor adjustments
