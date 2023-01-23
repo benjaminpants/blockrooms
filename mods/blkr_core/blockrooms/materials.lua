@@ -18,13 +18,31 @@ minetest.register_craftitem("blockrooms:pin", {
 
 minetest.register_tool("blockrooms:pencil", {
     description = S("Pencil"),
-    groups = {writing=2}, --the pencil can write, but its not permanent
+    groups = {writing=1}, --the pencil can write, but its not permanent
     inventory_image = "blockrooms_pencil.png",
+    wield_image = "blockrooms_pencil.png^[transformFY",
     _on_write = function(player,itemstack)
         itemstack:add_wear(65535 * 0.1)
         minetest.sound_play({name="blockrooms_write_pencil"}, {
             pos = player:get_pos(),
             gain = 0.4,
+            max_hear_distance = 4,
+            pitch = 1 + (math.random(-6,6) * 0.01)
+        }, true)
+        return itemstack
+    end
+})
+
+minetest.register_tool("blockrooms:pen", {
+    description = S("pen"),
+    groups = {writing=2}, --the pen can write and its permanent. good luck fixing typos LOSERS
+    inventory_image = "blockrooms_pen.png",
+    wield_image = "blockrooms_pen.png^[transformFY",
+    _on_write = function(player,itemstack)
+        itemstack:add_wear(65535 * 0.05)
+        minetest.sound_play({name="blockrooms_write_pen"}, {
+            pos = player:get_pos(),
+            gain = 0.1,
             max_hear_distance = 4,
             pitch = 1 + (math.random(-6,6) * 0.01)
         }, true)
@@ -60,14 +78,17 @@ minetest.register_node("blockrooms:pinned_paper", {
             size[8,8]
             field[0.1,0.5;7.8,6.8;writePrompt;Note:;]
         ]])
+        meta:set_int("permanent",0)
+        meta:set_string("infotext", "")
     end,
     on_receive_fields = function(pos, formname, fields, sender)
-        local attempted_text = fields["writePrompt"]
+        local attempted_text = fields["writePrompt"] --the text the person attempted to write
         if (attempted_text == "") then return end
         local itemName = sender:get_wielded_item():get_name()
         local registeredItem = minetest.registered_items[itemName]
         if (registeredItem ~= nil) then
             if (registeredItem.groups["writing"] == 0) or (registeredItem.groups["writing"] == nil) then --this is NOT a writing utensil..
+                minetest.chat_send_player(sender:get_player_name(), S("You need a writing utensil to write on this!"))
                 return
             end
             local meta = minetest.get_meta(pos)
@@ -80,6 +101,25 @@ minetest.register_node("blockrooms:pinned_paper", {
                 sender:set_wielded_item(registeredItem._on_write(sender,sender:get_wielded_item()))
             end
         end
+    end,
+    preserve_metadata = function(pos, oldnode, oldmeta, drops)
+        local drop = drops[1]
+        local dropMeta = drop:get_meta()
+        if ((oldmeta["infotext"] == "" or oldmeta["infotext"] == nil) and (oldmeta["permanent"] == 0 or oldmeta["permanent"] == nil)) then
+            return --nothings been changed, so don't set meta here, which would cause things to not stack.
+        end
+        dropMeta:set_int("permanent",oldmeta["permanent"])
+        dropMeta:set_string("infotext",oldmeta["infotext"])
+        dropMeta:set_string("description", S("Pinned Note\n@1",oldmeta["infotext"]))
+    end,
+    after_place_node = function(pos, placer, itemstack, pointed_thing)
+        local meta = itemstack:get_meta()
+        local blockmeta = minetest.get_meta(pos)
+        if (meta:get_int("permanent") == 1) then
+            blockmeta:set_int("permanent",1)
+            blockmeta:set_string("formspec","")
+        end
+        blockmeta:set_string("infotext",meta:get_string("infotext"))
     end
 })
 

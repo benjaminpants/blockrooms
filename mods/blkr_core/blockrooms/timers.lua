@@ -20,7 +20,7 @@ local function reduce_stat(stat)
 				return
 			end
 			if (stat == "thirst") then
-				player:set_hp(player:get_hp() - math.random(1,3), "thirst_gone")
+				player:set_hp(player:get_hp() - 6, "thirst_gone")
 				return
 			end
 		end
