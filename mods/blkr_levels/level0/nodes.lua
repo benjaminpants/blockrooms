@@ -130,22 +130,6 @@ minetest.register_node("level0:ceiling_tile", {
     groups = {blunt=3},
 })
 
-minetest.register_node("level0:light", {
-description = S("Block Light"),
-tiles = {"level0_ceiling_light.png"},
-paramtype = "light",
-light_source = 12,
-groups = {hand_breakable=4,blunt=1},
-drop = "blockrooms:glass_shard 2",
-on_dig = function(pos,node,player)
-    if (not minetest.check_player_privs(player, {creative=true})) then
-        player:set_hp(player:get_hp() - 2, "glass_break")
-    end
-    minetest.node_dig(pos,node,player)
-end,
-sounds = blockrooms.node_sound_base_shatter({},"glass")
-})
-
 minetest.register_abm({
     label = "Moss Cluster Growth",
 
@@ -167,3 +151,5 @@ minetest.register_abm({
 
 
 })
+
+minetest.register_alias("level0:light","blockrooms:light_block")

@@ -12,7 +12,7 @@ colors.colors = {
     {name="Purple",id="prp",rgb="8000FF"},
     {name="White",id="wht",rgb="FFFFFF"},
     {name="Gray",id="gry",rgb="999999"},
-    {name="Black",id="blk",rgb="090909"},
+    {name="Black",id="blk",rgb="18181E"},
     {name="Brown",id="brn",rgb="7A4025"}
 }
 
