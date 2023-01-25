@@ -45,17 +45,16 @@ blockrooms.liquidsAPI.onLiquidRegistered(function(liquid)
 	minetest.register_craftitem("blockrooms:plastic_bottle_" .. liquid.id, {
 		description = S("@1\n@2",liquid.display_name,minetest.get_color_escape_sequence("#808080") .. S("Plastic Bottle")),
 		inventory_image = "(" .. liquid.request_texture("waterbottle","blockrooms_bottle_filled.png") .. ")^blockrooms_bottle_empty.png",
+		_milibuckets = 25,
 		on_use = function(itemstack, user, pointed_thing)
-			if (liquid.drinkable) then
-				if (liquid.on_drink(user,1)) then
-					if (itemstack:get_count() == 1) then
-						return ItemStack("blockrooms:empty_plastic_bottle")
-					else
-						itemstack:take_item(1)
-						local stack = ItemStack("blockrooms:empty_plastic_bottle")
-            			user:get_inventory():add_item("main",stack)
-						return itemstack
-					end
+			if (blockrooms.liquidsAPI.attemptDrink(user,liquid,25)) then
+				if (itemstack:get_count() == 1) then
+					return ItemStack("blockrooms:empty_plastic_bottle")
+				else
+					itemstack:take_item(1)
+					local stack = ItemStack("blockrooms:empty_plastic_bottle")
+					user:get_inventory():add_item("main",stack)
+					return itemstack
 				end
 			end
 		end
@@ -74,17 +73,16 @@ blockrooms.liquidsAPI.onLiquidRegistered(function(liquid)
 	minetest.register_craftitem("blockrooms:soda_bottle_" .. liquid.id, {
 		description = S("@1\n@2",liquid.display_name,minetest.get_color_escape_sequence("#808080") .. S("Soda Bottle")),
 		inventory_image = "(" .. liquid.request_texture("waterbottle","blockrooms_bottle_filled.png") .. ")^blockrooms_sodabottle_empty.png",
+		_milibuckets = 40,
 		on_use = function(itemstack, user, pointed_thing)
-			if (liquid.drinkable) then
-				if (liquid.on_drink(user,1.8)) then
-					if (itemstack:get_count() == 1) then
-						return ItemStack("blockrooms:empty_soda_bottle")
-					else
-						itemstack:take_item(1)
-						local stack = ItemStack("blockrooms:empty_soda_bottle")
-            			user:get_inventory():add_item("main",stack)
-						return itemstack
-					end
+			if (blockrooms.liquidsAPI.attemptDrink(user, liquid,40)) then
+				if (itemstack:get_count() == 1) then
+					return ItemStack("blockrooms:empty_soda_bottle")
+				else
+					itemstack:take_item(1)
+					local stack = ItemStack("blockrooms:empty_soda_bottle")
+					user:get_inventory():add_item("main",stack)
+					return itemstack
 				end
 			end
 		end

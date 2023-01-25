@@ -8,7 +8,7 @@ minetest.register_tool("debug_pick:pick", {
 		full_punch_interval = 0.1,
 		max_drop_level = 3,
 		groupcaps = {
-			debug_pick = {times={[3]=1}, uses=0, maxlevel=3}
+			debug_pick = {times={[3]=0.4}, uses=0, maxlevel=3}
 		},
 		damage_groups = {fleshy=9999},
 	}

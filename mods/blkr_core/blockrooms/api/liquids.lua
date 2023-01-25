@@ -8,10 +8,34 @@ local S = minetest.get_translator()
 ]]
 
 
+--[[
+    {
+    color = "FFFFFF",
+    id = "exampleLiquid",
+    display_name = S("Example Liquid"),
+    drinkable = true, --if this fluid is "drinkable"
+    groups = {water=1},
+    valid_container_groups = {any=true}, --any is a special case that allows this liquid to be in ANY container.
+    minimal_mb = 25, --only needed if this liquid is drinkable. this determines the amount of MB required to get a full 1 multiplier
+    on_drink = function(player,mult)
+        return blockrooms.change_player_stat(player,"thirst",math.floor(8 * mult)) --return true if the drink action was performed
+    end,
+    request_texture = function(type, default_base) --whenever asked for a texture, this function will be called.
+        return default_base .. "^[multiply:#" .. "FFFFFF"
+    end
+    }
+
+]]
+
 blockrooms.liquidsAPI.liquids = {}
 blockrooms.liquidsAPI.liquidsList = {}
 
 blockrooms.liquidsAPI.liquidRegisterListeners = {}
+
+blockrooms.liquidsAPI.getLiquidStorage = function(item_name)
+    local item = minetest.registered_items[item_name]
+    return item._milibuckets or 0
+end
 
 blockrooms.liquidsAPI.onLiquidRegistered = function(func)
     if (func == nil) then
@@ -33,6 +57,14 @@ blockrooms.liquidsAPI.onLiquidRegistered = function(func)
             processed[blockrooms.liquidsAPI.liquidsList[i].id] = true
         end
     end
+end
+
+blockrooms.liquidsAPI.attemptDrink = function(user, liquid, totalmB)
+    if (liquid.drinkable) then
+        local mult = totalmB / liquid.minimal_mb
+        return liquid.on_drink(user,mult)
+    end
+    return false
 end
 
 blockrooms.liquidsAPI.addLiquid = function(liquiddata)

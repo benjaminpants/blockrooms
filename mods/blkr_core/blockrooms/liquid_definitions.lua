@@ -7,6 +7,7 @@ local almondWater = {
     display_name = S("Almond Water"),
     drinkable = true, --if this fluid is "drinkable"
     groups = {water=1},
+    minimal_mb = 25,
     valid_container_groups = {any=true}, --any is a special case that allows this liquid to be in ANY container.
     on_drink = function(player,mult)
         return blockrooms.change_player_stat(player,"thirst",math.floor(8 * mult)) --return true if the drink action was performed
@@ -25,6 +26,7 @@ local normalWater = {
     display_name = S("Water"),
     drinkable = true, --if this fluid is "drinkable"
     groups = {water=1},
+    minimal_mb = 25,
     valid_container_groups = {any=true}, --any is a special case that allows this liquid to be in ANY container.
     on_drink = function(player,mult)
         local did_drink = blockrooms.change_player_stat(player,"thirst",math.ceil(13 * mult))
@@ -45,6 +47,7 @@ local cola = {
     id = "cola",
     display_name = S("Cola"),
     drinkable = true, --if this fluid is "drinkable"
+    minimal_mb = 25,
     valid_container_groups = {any=true}, --any is a special case that allows this liquid to be in ANY container.
     on_drink = function(player,mult)
         local did_drink = blockrooms.change_player_stat(player,"thirst",math.ceil(4 * mult))
@@ -66,6 +69,7 @@ local dirtyAlmondWater = {
     id = "dirty_almondwater",
     display_name = S("Dirty Almond Water"),
     groups = {water=1},
+    minimal_mb = 25,
     drinkable = true, --if this fluid is "drinkable"
     valid_container_groups = {any=true}, --any is a special case that allows this liquid to be in ANY container.
     on_drink = function(player,mult)

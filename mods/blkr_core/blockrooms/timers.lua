@@ -1,10 +1,14 @@
-local thirstdrain = 6
-local hungerdrain = 3
-local sanitydrain = 1
+blockrooms.stats = {}
+
+blockrooms.stats.thirstDrainTime = 6
+blockrooms.stats.hungerDrainTime = 3
+blockrooms.stats.sanityDrainTime = 1
 
 
+--TODO: all this code is stupid and it was directly ported from the OG "Minetest Backrooms"
 
-local function reduce_stat(stat)
+
+blockrooms.stats.reduceStat = function(stat)
 	local players = minetest.get_connected_players()
     for _, player in pairs(players) do
 		if (player:get_hp() == 0) then return end
@@ -40,7 +44,7 @@ local function reduce_stat(stat)
 	end
 end
 
-local function reduce_stat_sanity(stat)
+blockrooms.stats.reduceStatSanity = function(stat)
 	local players = minetest.get_connected_players()
     for _, player in pairs(players) do
 		if (player:get_hp() == 0) then return end
@@ -57,7 +61,7 @@ local function reduce_stat_sanity(stat)
 		if (light == nil) then return end
 		if (light == 0) then
 			value = -1
-			blockrooms.increment_exhaustion(player,1)
+			blockrooms.increment_exhaustion(player,math.random(0,1))
 		end
 		if ((statstate + value) > blockrooms.sanity_max) then
 			meta:set_int(stat,blockrooms.sanity_max)
@@ -70,13 +74,13 @@ local function reduce_stat_sanity(stat)
 end
 
 
-local function reducethirst()
-    minetest.after(thirstdrain, reducethirst)
-	reduce_stat("thirst")
+blockrooms.stats.reduceStatThirst = function()
+    minetest.after(blockrooms.stats.thirstDrainTime, blockrooms.stats.reduceStatThirst)
+	blockrooms.stats.reduceStat("thirst")
 end
 
-local function attemptheal()
-    minetest.after(hungerdrain, attemptheal)
+blockrooms.stats.attemptHeal = function()
+    minetest.after(blockrooms.stats.hungerDrainTime, blockrooms.stats.attemptHeal)
 	local players = minetest.get_connected_players()
     for _, player in pairs(players) do
 		local hp = player:get_hp()
@@ -88,37 +92,21 @@ local function attemptheal()
 	end
 end
 
-local function reducesanity()
-    minetest.after(sanitydrain, reducesanity)
+blockrooms.stats.reduceSanity = function()
+    minetest.after(blockrooms.stats.hungerDrainTime, blockrooms.stats.reduceSanity)
 	local players = minetest.get_connected_players()
 	for _, player in pairs(players) do
 		if (player:get_hp() == 0) then return end
-		blockrooms.increment_exhaustion(player,4) --bring back hunger depletion over time, just make it very slow.
+		blockrooms.increment_exhaustion(player,math.random(0,2)) --bring back hunger depletion over time, just make it very slow.
 	end
-	reduce_stat_sanity("sanity")
-end
-
---BELOW IS DISABLED SINCE I HAVENT REIMPLEMENTED FLOORS
-local function playertic(time)
-	local players = minetest.get_connected_players()
-    for _, player in pairs(players) do
-		local meta = player:get_meta()
-		local floor = meta:get_int("floor")
-		if (blockrooms.floordata[floor] ~= nil) then
-			if (blockrooms.floordata[floor].floor_tic ~= nil) then
-				blockrooms.floordata[floor].floor_tic(player)
-			end
-		end
-	end
+	blockrooms.stats.reduceStatSanity("sanity")
 end
 
 
---TODO: Re-enable stat drain once food items are re-implemented. Possibly disable stat drain if the player is in creative mode or has the "no_drain" permission.
+minetest.after(blockrooms.stats.thirstDrainTime, blockrooms.stats.reduceStatThirst)
 
-minetest.after(thirstdrain, reducethirst)
+minetest.after(blockrooms.stats.hungerDrainTime, blockrooms.stats.attemptHeal)
 
-minetest.after(hungerdrain, attemptheal)
-
-minetest.after(sanitydrain, reducesanity)
+minetest.after(blockrooms.stats.sanityDrainTime, blockrooms.stats.reduceSanity)
 
 --minetest.register_globalstep(playertic)

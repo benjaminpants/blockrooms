@@ -34,7 +34,7 @@ minetest.register_tool("blockrooms:pencil", {
 })
 
 minetest.register_tool("blockrooms:pen", {
-    description = S("pen"),
+    description = S("Pen"),
     groups = {writing=2}, --the pen can write and its permanent. good luck fixing typos LOSERS
     inventory_image = "blockrooms_pen.png",
     wield_image = "blockrooms_pen.png^[transformFY",
@@ -105,12 +105,12 @@ minetest.register_node("blockrooms:pinned_paper", {
     preserve_metadata = function(pos, oldnode, oldmeta, drops)
         local drop = drops[1]
         local dropMeta = drop:get_meta()
-        if ((oldmeta["infotext"] == "" or oldmeta["infotext"] == nil) and (oldmeta["permanent"] == 0 or oldmeta["permanent"] == nil)) then
-            return --nothings been changed, so don't set meta here, which would cause things to not stack.
+        if ((oldmeta["infotext"] == "" or oldmeta["infotext"] == nil) or (oldmeta["permanent"] == 0 or oldmeta["permanent"] == nil)) then
+            return nil --nothings been changed, so don't set meta here, which would cause things to not stack.
         end
         dropMeta:set_int("permanent",oldmeta["permanent"])
         dropMeta:set_string("infotext",oldmeta["infotext"])
-        dropMeta:set_string("description", S("Pinned Note\n@1",oldmeta["infotext"]))
+        dropMeta:set_string("description", S("Pinned Note\n@1",oldmeta["infotext"] or ""))
     end,
     after_place_node = function(pos, placer, itemstack, pointed_thing)
         local meta = itemstack:get_meta()

@@ -166,10 +166,22 @@ local lootTable = {
         weight=40},
         {value={
             name="blockrooms:pin",
-            item_range = {min = 1, max = 1},
-            max_duplicates = 4
+            item_range = {min = 1, max = 2},
+            max_duplicates = 2
         },
         weight=50},
+        {value={
+            name="blockrooms:pencil",
+            item_range = {min = 1, max = 1},
+            max_duplicates = 1
+        },
+        weight=44},
+        {value={
+            name="blockrooms:pen",
+            item_range = {min = 1, max = 1},
+            max_duplicates = 1
+        },
+        weight=40},
         {value={
             name="blockrooms:plastic_bottle_dirty_almondwater",
             item_range = {min = 1, max = 1},
