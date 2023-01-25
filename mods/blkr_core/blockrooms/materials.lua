@@ -70,7 +70,7 @@ minetest.register_node("blockrooms:pinned_paper", {
     tiles = {"blockrooms_paper_pinned_written.png"},
     is_ground_content = false,
     sounds = blockrooms.node_sound_soft({},"paper"),
-    groups = {near_instant=9},
+    groups = {near_instant=8},
     on_construct = function(pos)
         local meta = minetest.get_meta(pos)
         meta:set_string("formspec", [[

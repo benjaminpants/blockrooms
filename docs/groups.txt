@@ -19,16 +19,16 @@ rock | any small sized stone object
 sticky | anything sticky, tape, glue, whatever
 metal | any kind of metal
 iron | stuff that contains or is out of iron
+writable | if its 1, it can be used to write on paper repeatedly, if its 2, it will lock the paper on whatever the user writes on it next.
 
 
 
-Mining Levels:
+Mining Levels(each mining level can mine all the ones before it):
 1 - Very basic "tools", typically random objects, spoons, forks, glass shards, whatever.
 2 - Low tier makeshift tools, like a wooden board mixed with a glass shard
 3 - Some actual rudemntry tools, poorly put together hammers, various objects taped together to form fake tools.
-4 - Proper mechanical tools, real drills, wire cutters, proper pickaxes, so on.
-5 - Advanced mechanical tools, more powerful drills, acids, etc
-6 - 
-7 -
-8 - Anomalous artifacts ONLY
-9 - Shouldn't be used for much of anything, mostly used for near_instant
+4 - Basic proper tools, wooden/stone tools for the most part
+5 - Proper mechanical tools, real drills, wire cutters, proper pickaxes, so on.
+6 - Advanced mechanical tools, more powerful drills, acids, etc
+7 - Multiblock miners. Lasers, minining machines, etc.
+8 - Anomalous artifacts/tool (if any end up existing)

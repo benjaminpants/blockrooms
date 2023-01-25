@@ -20,7 +20,7 @@ local leveldata = {
 	level_type = "normal", --the type of the floor, supports "normal", "enigmatic", and "sublevel" at the moment. set a floor as enigmatic if it should be ignored by stuff like the hub.
 	--sublevel doesn't do anything at the moment, but will probably be used for sorting in the future.
 	layers_to_allocate = 1, --how many "layers" should be allocated? layers in this case mean how many mapchunks tall should this floor be?
-	spawn_offset = 2, --how high the player is spawned above the "ground" level
+	spawn_offset = 3, --how high the player is spawned above the "ground" level
 	--on_player_death = function(player) --a function that is called when a player dies on this floor, return true to do the default death handling, false to prevent it
 	--on_player_spawn = function(player,previous_floor) --previous_floor is the internal name of the previous floor the player was on before being sent to this one, if left blank the default spawn code will be used.
 	structures = {} --non standardized, structures are stored here so if any poor soul wants to mod this floor they can
@@ -91,6 +91,12 @@ local generate_function = function(minp, maxp, seed, layer)
 
 	for i in area:iter( minp.x, minp.y + 1, minp.z, maxp.x, minp.y + 1, maxp.z ) do 
 		if data[i] == c_air then
+			data[i] = c_unbreakable
+		end 
+	end
+
+	for i in area:iter( minp.x, minp.y + 2, minp.z, maxp.x, minp.y + 2, maxp.z ) do 
+		if data[i] == c_air then
 			if (math.random(1,100) == 1) then
 				data[i] = c_concrete_wet
 			else
@@ -100,6 +106,10 @@ local generate_function = function(minp, maxp, seed, layer)
 	end
 
 
+	for i in area:iter( minp.x, minp.y + 15, minp.z, maxp.x, minp.y + 15, maxp.z ) do 
+		data[i] = c_unbreakable
+	end
+
 	vm:set_data(data)
 
 	vm:set_lighting{day=0, night=0} 
@@ -108,8 +118,9 @@ local generate_function = function(minp, maxp, seed, layer)
 
 	vm:write_to_map()
 
-	generateFloor_Func(minp, maxp, seed, layer, vm, emin, emax, data, area, 0, true)
-	generateFloor_Func(minp, maxp, seed, layer, vm, emin, emax, data, area, 6, false)
+	generateFloor_Func(minp, maxp, seed, layer, vm, emin, emax, data, area, 1, true)
+	generateFloor_Func(minp, maxp, seed, layer, vm, emin, emax, data, area, 7, false)
+
 
 	data = vm:get_data() 
 

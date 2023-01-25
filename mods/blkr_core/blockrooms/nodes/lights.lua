@@ -24,7 +24,7 @@ minetest.register_node("blockrooms:hanging_light", {
     drawtype = "mesh",
     paramtype2 = "facedir",
     paramtype = "light",
-    light_source = 6,
+    light_source = 7,
     groups = {blunt=2},
     drop = "blockrooms:glass_shard 2",
     on_dig = function(pos,node,player)

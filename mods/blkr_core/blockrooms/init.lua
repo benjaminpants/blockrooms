@@ -41,10 +41,10 @@ minetest.register_item(":", {
 	wield_scale = {x=1,y=1,z=3.5},
 	tool_capabilities = {
 		full_punch_interval = 1.0,
-		max_drop_level = 0,
+		max_drop_level = 8, --anything with hand_breakable or near_instance should pretty much always drop
 		groupcaps = { --WE ARE NOT BOUND BY MINETEST GAME. WE CAN RIGHT THE WRONGS OF ITS SINS. 0 IS THE WEAKEST. STRONGNESS GOES UP AS THE NUMBER DOES.
 			hand_breakable = {times={[8]=8.5,[7]=7,[6]=5.75,[5]=4.5,[4]=3.75,[3]=3.25,[2]=2.00,[1]=1.40}, uses=0, maxlevel=4},
-			near_instant = {times={[9]=1.0,[8]=0.8,[7]=0.7,[6]=0.6,[5]=0.5,[4]=0.4,[3]=0.3,[2]=0.2,[1]=0.1}, uses=0, maxlevel=4}
+			near_instant = {times={[8]=0.8,[7]=0.7,[6]=0.6,[5]=0.5,[4]=0.4,[3]=0.3,[2]=0.2,[1]=0.1}, uses=0, maxlevel=4}
 		},
 		damage_groups = {fleshy=1},
 	}
