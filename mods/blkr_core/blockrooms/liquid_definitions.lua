@@ -88,3 +88,27 @@ local dirtyAlmondWater = {
 }
 
 blockrooms.liquidsAPI.addLiquid(dirtyAlmondWater)
+
+tubes.createTubeEasy(
+    {
+        -- North, East, South, West, Down, Up
+    -- dirs_to_check = {1,2,3,4}, -- horizontal only
+    -- dirs_to_check = {5,6},  -- vertical only
+    dirs_to_check = {1,2,3,4,5,6},
+    max_tube_length = math.huge,
+    show_infotext = false,
+    secondary_node_names = {},
+    after_place_tube = function(pos, param2, tube_type, num_tubes, tbl)
+        minetest.swap_node(pos, {name = "blockrooms:water_pipe" .. tube_type, param2 = param2})
+    end,
+    primary_node_names = {"blockrooms:water_pipeS", "blockrooms:water_pipeA"}
+    --debug_info = debug_info,
+    },
+    {
+        description = S("Water Pipe"),
+        groups = {blunt=2},
+        sounds = blockrooms.node_sound_base({},"tin")
+    },
+    tubes.createTileData("blockrooms_copper_pipe.png","blockrooms_copper_pipe_hole.png"),
+    "blockrooms:water_pipe"
+)
