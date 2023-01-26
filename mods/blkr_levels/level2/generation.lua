@@ -1,3 +1,6 @@
+local G = minetest.get_content_id
+
+
 local default_path = minetest.get_modpath("level2")
 
 local c_unbreakable = G("blockrooms:unbreakable")
