@@ -1,5 +1,3 @@
-local c_replaceable = minetest.get_content_id("blockrooms:replaceme")
-local c_replaceable_a = minetest.get_content_id("blockrooms:replaceme_2")
 local c_unbreakable = minetest.get_content_id("blockrooms:unbreakable")
 local c_air = minetest.get_content_id("air")
 

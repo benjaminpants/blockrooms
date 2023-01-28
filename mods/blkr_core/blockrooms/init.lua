@@ -7,8 +7,6 @@ blockrooms = {}
 
 blockrooms.default_floor = "example_floor"
 
-blockrooms.rng_utils = {}
-
 dofile(default_path .. "/sounds.lua")
 
 dofile(default_path .. "/api/floors.lua")
@@ -16,18 +14,6 @@ dofile(default_path .. "/api/floors.lua")
 dofile(default_path .. "/api/chests.lua")
 
 dofile(default_path .. "/api/liquids.lua")
-
-
-blockrooms.floors.get_player_on_floor = function(floorname)
-	local players = minetest.get_connected_players()
-	local players_on_floor = {}
-	for i=1, #players do
-		if (players[i]:get_meta():get_string("floor") == floorname) then
-			table.insert(players_on_floor,players[i])
-		end
-	end
-	return players_on_floor
-end
 
 --some game constants
 blockrooms.hunger_max = 100
@@ -69,22 +55,6 @@ tiles = {"blockrooms_unbreakable.png"},
 sounds = blockrooms.node_sound_base({},"tin")
 })
 
---TODO: delete these. they are dumb.
-
-minetest.register_node("blockrooms:replaceme_2", {
-description = "REPLACE ME",
-tiles = {"blockrooms_replaceme.png^blockrooms_icon_sanity.png"},
-groups = {hand_breakable=2}
-})
-
-minetest.register_node("blockrooms:replaceme_3", {
-description = "REPLACE ME",
-tiles = {"blockrooms_replaceme.png^blockrooms_icon_hunger.png"},
-groups = {hand_breakable=2}
-})
-
-dofile(default_path .. "/random_utils.lua")
-
 dofile(default_path .. "/basic_prebuilt_generators.lua")
 
 dofile(default_path .. "/define_cool_stuff.lua")
@@ -117,4 +87,4 @@ dofile(default_path .. "/liquid_definitions.lua")
 
 --add localizations for the following strings(mostly for the automatic localization creator) in the main file so its not scattered everywhere.
 
-S("@1 Floor", "")
+S("Level @1", "")

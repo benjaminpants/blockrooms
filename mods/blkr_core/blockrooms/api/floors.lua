@@ -45,6 +45,38 @@ minetest.register_on_mods_loaded(function()
 	end
 end)
 
+blockrooms.floors.get_floor_y = function(floor_id,include_offset)
+	return blockrooms.floors.get_floor_y_from_data(blockrooms.floors.levels[floor_id],include_offset)
+end
+
+blockrooms.floors.teleport_player_to_floor = function(player, floor)
+	local meta = player:get_meta()
+	local data = blockrooms.floors.levels[floor]
+	if (data == nil) then return false end
+	meta:set_string("floor",floor) --only send the player there if the data actually exists
+
+	--call the teleport function for the specific floor if it exists
+	if (data.on_player_spawn ~= nil) then
+		data.on_player_spawn(player)
+	else
+		player:set_pos(vector.new(math.random(-8000,8000),blockrooms.floors.get_floor_y_from_data(data,true),math.random(-8000,8000)))
+	end
+
+	return true
+
+end
+
+blockrooms.floors.get_player_on_floor = function(floorname)
+	local players = minetest.get_connected_players()
+	local players_on_floor = {}
+	for i=1, #players do
+		if (players[i]:get_meta():get_string("floor") == floorname) then
+			table.insert(players_on_floor,players[i])
+		end
+	end
+	return players_on_floor
+end
+
 minetest.register_globalstep(function(dtime)
 	for i=1, #blockrooms.floors.level_ids do
 		local data = blockrooms.floors.levels[blockrooms.floors.level_ids[i]]

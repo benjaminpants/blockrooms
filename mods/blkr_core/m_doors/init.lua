@@ -1,5 +1,7 @@
 local S = minetest.get_translator()
 
+--i'll end up rewriting this entire thing AGAIN later
+
 doors = {}
 
 doors.boxes = {}
@@ -20,7 +22,9 @@ doors.example_door_data = {
     max_hear_distance = 8,
     open_sound = {name="wooden_door_open"},
     close_sound = {name="wooden_door_close"},
-    knock_sound = {name="wooden_door_knock"}
+    knock_sound = {name="wooden_door_knock"},
+    on_state_change = nil, --function(doordata,current_state,pos, node, clicker, itemstack, pointed_thing) --if the door is closed, current_state will be CLOSED, not OPEN
+    post_node_data = nil --function(state,data)
 }
 
 --[[doors.example_door_data_again = {
@@ -39,10 +43,41 @@ doors.example_door_data = {
 }--]]
 
 
+doors.default_open_behavior = function(doordata,pos)
+    local n = minetest.get_node(pos)
+    minetest.swap_node(pos, {name=doordata.id .. "_opened", param2=n.param2})
+    minetest.sound_play(doordata.open_sound, {
+        pos = pos,
+        gain = 1.0,
+        max_hear_distance = doordata.max_hear_distance
+    }, true)
+end
+
+doors.default_close_behavior = function(doordata,pos)
+    local n = minetest.get_node(pos)
+    minetest.swap_node(pos, {name=doordata.id, param2=n.param2})
+    minetest.sound_play(doordata.close_sound, {
+        pos = pos,
+        gain = 1.0,
+        max_hear_distance = doordata.max_hear_distance
+    }, true)
+end
+
+doors.default_knock_behavior = function(doordata,pos)
+    minetest.sound_play(doordata.knock_sound, {
+        pos = pos,
+        gain = 1.0,
+        max_hear_distance = doordata.max_hear_distance,
+        pitch = 1 + (math.random(-3,3) * 0.02)
+    }, true)
+    return nil
+end
+
 doors.create_door = function(doordata)
     local closed_id = doordata.id
     local opened_id = doordata.id .. "_opened"
-    minetest.register_node(closed_id, {
+
+    local closed_data = {
         description = doordata.name,
         tiles = {doordata.texture},
         drawtype = "mesh",
@@ -57,28 +92,26 @@ doors.create_door = function(doordata)
         collision_box = doordata.boxes.closed,
         sounds = doordata.sounds,
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-            local n = minetest.get_node(pos)
-            minetest.swap_node(pos, {name=opened_id, param2=n.param2})
-            minetest.sound_play(doordata.open_sound, {
-                pos = pos,
-                gain = 1.0,
-                max_hear_distance = doordata.max_hear_distance
-            }, true)
+            if (doordata.on_state_change ~= nil) then
+                return doordata.on_state_change(doordata,"closed",pos, node, clicker, itemstack, pointed_thing)
+            end
+            return doors.default_open_behavior(doordata,pos)
         end,
         on_punch = function(pos)
-            minetest.sound_play(doordata.knock_sound, {
-                pos = pos,
-                gain = 1.0,
-                max_hear_distance = doordata.max_hear_distance,
-                pitch = 1 + (math.random(-3,3) * 0.02)
-            }, true)
-            return nil --dont mess with this
+            return doors.default_knock_behavior(doordata,pos)
         end
-    })
+    }
+
+    if (doordata.post_node_data ~= nil) then
+        doordata.post_node_data("closed",closed_data)
+    end
+
+    minetest.register_node(closed_id, closed_data)
     
     local groupcopy = table.copy(doordata.groups)
     groupcopy.not_in_creative_inventory = 1
-    minetest.register_node(opened_id, {
+
+    local opened_data = {
         description = doordata.name .. " (Open)",
         tiles = {doordata.texture},
         drawtype = "mesh",
@@ -92,15 +125,18 @@ doors.create_door = function(doordata)
         sounds = doordata.sounds,
         drop = closed_id,
         on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-            local n = minetest.get_node(pos)
-            minetest.swap_node(pos, {name=closed_id, param2=n.param2})
-            minetest.sound_play(doordata.close_sound, {
-                pos = pos,
-                gain = 1.0,
-                max_hear_distance = doordata.max_hear_distance
-            }, true)
+            if (doordata.on_state_change ~= nil) then
+                return doordata.on_state_change(doordata,"opened",pos, node, clicker, itemstack, pointed_thing)
+            end
+            return doors.default_close_behavior(doordata,pos)
         end
-    })
+    }
+
+    if (doordata.post_node_data ~= nil) then
+        doordata.post_node_data("opened",opened_data)
+    end
+
+    minetest.register_node(opened_id, opened_data)
 
 end
 

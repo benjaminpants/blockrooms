@@ -4,7 +4,6 @@ loot_tables.LootTables = {}
 
 loot_tables.AddLootTable = function(id,data)
     local dat = table.copy(data)
-    weighted_random.ConvertToProperWeights(dat.data)
     loot_tables.LootTables[id] = dat
 end
 
@@ -29,7 +28,7 @@ loot_tables.FillInventory = function(invref, table_id)
         if (#available_slots == 1) then --are we about to run out of available slots? if so, set i to be the biggest value so this is the last iteration
             i = attempted_max_items
         end
-        local curItem = weighted_random.WeightedRandom(tab.data)
+        local curItem = randomUtils.weightedRandom(tab.data)
         local curItemName = curItem.name
         curItemNameForMaxAmount = curItem.name
         if (curItem.overrideFunc ~= nil) then --if there is an override function, run it

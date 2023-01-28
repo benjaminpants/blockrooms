@@ -18,7 +18,7 @@ local c_air = G("air")
 
 local c_unbreakable = G("blockrooms:unbreakable")
 
-local weighted_wall_types = {{{"level0:arrow_wallpaper","level0:trim_arrow_wallpaper"},2500}, {{"level0:dots_wallpaper","level0:trim_dots_wallpaper"},100}, {{"level0:stripes_wallpaper","level0:trim_stripes_wallpaper"},200}}
+local weighted_wall_types = {{value={"level0:arrow_wallpaper","level0:trim_arrow_wallpaper"},weight=2500}, {value={"level0:dots_wallpaper","level0:trim_dots_wallpaper"},weight=100}, {value={"level0:stripes_wallpaper","level0:trim_stripes_wallpaper"},weight=200}}
 
 
 local generic_wall_data = {
@@ -32,7 +32,7 @@ local generic_wall_data = {
 local function GenerateRandomWallData(rng_carve)
 	local data = {}
 	data.randomly_carve = rng_carve
-	local wall_types = blockrooms.rng_utils.choosechance(weighted_wall_types)
+	local wall_types = randomUtils.weightedRandom(weighted_wall_types)
 	data.main_block = wall_types[1]
 	data.trim_block = wall_types[2]
 
@@ -50,10 +50,10 @@ local function GenerateWall(startx, direction, seed, area, data, width,maxp, wal
 	local move_z = 0
 	local height = 4
 	local moss_chance = 5
-	if (blockrooms.rng_utils.percentage(2)) then --chance for a wall to be double mossy
+	if (randomUtils.percentage(2)) then --chance for a wall to be double mossy
 		moss_chance = 10
 	end
-	if (blockrooms.rng_utils.percentage(1)) then
+	if (randomUtils.percentage(1)) then
 		height = 3 --those weird lower hanging walls are rare but do happen.
 	end
 	if (direction == "x") then
@@ -63,12 +63,12 @@ local function GenerateWall(startx, direction, seed, area, data, width,maxp, wal
 	end
 	local append = ""
 	for j=0, width do
-		if (blockrooms.rng_utils.percentage(71)) or (not wall_data.randomly_carve) then
+		if (randomUtils.percentage(71)) or (not wall_data.randomly_carve) then
 			local offset = (j * 2)
 			local offset_2 = ((j * 2) + 1)
 			if (wall_data.trim_block ~= nil and j ~= width) then --before anyone asks, i made this just so it matches the original image where the trim ends before the wall completly ends
 				for i in area:iter( startx.x + (offset * move_x), startx.y + 1, startx.z + (offset * move_z), startx.x + (offset_2 * move_x), startx.y + (height - 1), startx.z + (offset_2 * move_z) ) do 
-					if (blockrooms.rng_utils.percentage(moss_chance)) then
+					if (randomUtils.percentage(moss_chance)) then
 						append = "_moss"
 					else
 						append = ""
@@ -80,7 +80,7 @@ local function GenerateWall(startx, direction, seed, area, data, width,maxp, wal
 				end
 			else
 				for i in area:iter( startx.x + (offset * move_x), startx.y, startx.z + (offset * move_z), startx.x + (offset_2 * move_x), startx.y + (height - 1), startx.z + (offset_2 * move_z) ) do 
-					if (blockrooms.rng_utils.percentage(moss_chance)) then
+					if (randomUtils.percentage(moss_chance)) then
 						append = "_moss"
 					else
 						append = ""
@@ -95,14 +95,14 @@ local function GenerateWall(startx, direction, seed, area, data, width,maxp, wal
 end
 
 local function GenerateRoom(startx, seed, area, data, maxp)
-	if (blockrooms.rng_utils.percentage(99)) then
+	if (randomUtils.percentage(99)) then
     	GenerateWall(startx, "x", seed, area, data, 4, maxp, GenerateRandomWallData(true))
 	end
-	if (blockrooms.rng_utils.percentage(99)) then
+	if (randomUtils.percentage(99)) then
 		GenerateWall(startx, "z", seed, area, data, 4, maxp, GenerateRandomWallData(true))
 	end
 
-	if (blockrooms.rng_utils.percentage(99)) then
+	if (randomUtils.percentage(99)) then
 		data[area:index(startx.x + 4, startx.y + 4, startx.z + 4)] = c_light
 		data[area:index(startx.x + 5, startx.y + 4, startx.z + 4)] = c_light
 	end
@@ -137,7 +137,7 @@ local main_generate_function = function(minp, maxp, seed, layer)
 	end
 
 	for i in area:iter( minp.x, minp.y + 1, minp.z, maxp.x, minp.y + 1, maxp.z) do
-		if (blockrooms.rng_utils.percentage(3)) then
+		if (randomUtils.percentage(3)) then
 			data[i] = c_carpet_wet
 		else
 			data[i] = c_carpet
