@@ -23,7 +23,7 @@ doors.example_door_data = {
     open_sound = {name="wooden_door_open"},
     close_sound = {name="wooden_door_close"},
     knock_sound = {name="wooden_door_knock"},
-    on_state_change = nil, --function(doordata,current_state,pos, node, clicker, itemstack, pointed_thing) --if the door is closed, current_state will be CLOSED, not OPEN
+    on_state_change = nil, --function(doordata,current_state,pos, node, clicker, itemstack, pointed_thing) --if the door is closed, current_state will be closed, not opened
     post_node_data = nil --function(state,data)
 }
 

@@ -63,4 +63,6 @@ leveltwodata.on_player_spawn = function(player, previous_floor)
     player:set_pos(vector.new(2.5,y + 0.5,40))
 end
 
+leveltwodata.validLevelWarps = {{value="level_0",weight=100}} --PLACEHOLDER
+
 blockrooms.floors.add_level(leveltwodata)
