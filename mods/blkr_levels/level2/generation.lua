@@ -3,7 +3,9 @@ local G = minetest.get_content_id
 
 local default_path = minetest.get_modpath("level2")
 
-local c_unbreakable = G("blockrooms:unbreakable")
+local c_unbreakable = G("blockrooms:rock_unbreakable")
+
+local c_rock = G("blockrooms:rock")
 
 local total_structures = 13
 
@@ -14,12 +16,20 @@ local main_func = function(minp, maxp, seed, layer)
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
 
 	math.randomseed(seed)
+
+	for i in area:iter( minp.x, minp.y, minp.z, maxp.x, maxp.y, maxp.z) do --fill most the map with rock
+		data[i] = c_rock
+	end
+
+	for i in area:iter( minp.x, minp.y, minp.z, maxp.x, minp.y, maxp.z) do --add unbreakable floor
+		data[i] = c_unbreakable
+	end
+
+	for i in area:iter( minp.x, maxp.y, minp.z, maxp.x, maxp.y, maxp.z) do --add unbreakable ceiling
+		data[i] = c_unbreakable
+	end
 	
 	vm:set_data(data)
-
-	vm:set_lighting{day=0, night=0} 
-	
-	vm:calc_lighting() 
 
 	vm:write_to_map() 
 
@@ -33,10 +43,25 @@ local main_func = function(minp, maxp, seed, layer)
     for z=0, 15 do
         local vec = vector.new(minp.x + 32, minp.y + 1, minp.z + (z * 5))
         if (math.random(1,4) ~= 1) then
-            minetest.place_schematic(vec, default_path .. "/schems/l2_hall_main_" .. math.random(1,3) .. ".mts", "0")
+            minetest.place_schematic_on_vmanip(vm, vec, default_path .. "/schems/l2_hall_main_" .. math.random(1,3) .. ".mts", "0", nil, true)
         else
-            minetest.place_schematic(vec, default_path .. "/schems/l2_hall_main_" .. math.random(4,total_structures) .. ".mts", "0")
+            if (math.random(1,10) == 1) then
+				minetest.place_schematic_on_vmanip(vm, vec, default_path .. "/schems/l2_hall_door_1.mts", "0", nil, true)
+			else
+				minetest.place_schematic_on_vmanip(vm, vec, default_path .. "/schems/l2_hall_main_" .. math.random(4,total_structures) .. ".mts", "0", nil, true)
+			end
         end
+    end
+
+	vm:set_lighting{day=0, night=0}
+
+	vm:calc_lighting()
+
+	vm:write_to_map()
+
+	for z=0, 15 do
+        local vec = vector.new(minp.x + 32, minp.y + 1, minp.z + (z * 5))
+		minetest.place_node(vec + vector.new(0,2,0), {name="blockrooms:replaceme"})
     end
 
 end
@@ -63,6 +88,6 @@ leveltwodata.on_player_spawn = function(player, previous_floor)
     player:set_pos(vector.new(2.5,y + 0.5,40))
 end
 
-leveltwodata.validLevelWarps = {{value="level_0",weight=100}} --PLACEHOLDER
+leveltwodata.validLevelWarps = {{value="level_1",weight=100}}
 
 blockrooms.floors.add_level(leveltwodata)

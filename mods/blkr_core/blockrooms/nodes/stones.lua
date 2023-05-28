@@ -14,6 +14,13 @@ minetest.register_node("blockrooms:rock", {
     sounds = blockrooms.node_sound_base_custom_place({},"wood") --placeholder
 })
 
+minetest.register_node("blockrooms:rock_unbreakable", {
+    description = S("Unbreakable Rock"),
+    tiles = {"blockrooms_rock.png"},
+    groups = {},
+    sounds = blockrooms.node_sound_base_custom_place({},"wood") --placeholder
+})
+
 minetest.register_node("blockrooms:sheet_metal", {
     description = S("Sheet Metal"),
     tiles = {"blockrooms_fan_metal.png"},

@@ -79,6 +79,8 @@ dofile(default_path .. "/nodes/stones.lua")
 
 dofile(default_path .. "/nodes/lights.lua")
 
+dofile(default_path .. "/nodes/building.lua")
+
 dofile(default_path .. "/nodes/decos.lua")
 
 dofile(default_path .. "/crafting_recipes.lua")
