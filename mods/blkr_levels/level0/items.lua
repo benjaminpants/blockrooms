@@ -6,7 +6,7 @@ minetest.register_craftitem("level0:moss_cluster", {
 	on_place = function(itemstack, placer, pointed_thing)
         local node = minetest.get_node(pointed_thing.under)
         if (not minetest.is_player(placer)) then return end
-        if (minetest.is_protected(pos, placer)) then
+        if (minetest.is_protected(pos, placer)) then -- todo: fix
             return
         end
         if (minetest.registered_nodes[node.name].groups["can_have_moss_cluster"] ~= nil) then

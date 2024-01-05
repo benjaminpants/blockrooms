@@ -21,14 +21,6 @@ local c_unbreakable = G("blockrooms:unbreakable")
 local weighted_wall_types = {{value={"level0:arrow_wallpaper","level0:trim_arrow_wallpaper"},weight=2500}, {value={"level0:dots_wallpaper","level0:trim_dots_wallpaper"},weight=100}, {value={"level0:stripes_wallpaper","level0:trim_stripes_wallpaper"},weight=200}}
 
 
-local generic_wall_data = {
-	main_block = c_wall_arrow,
-	trim_block = c_wall_arrow_trim,
-	randomly_carve = true,
-
-
-}
-
 local function GenerateRandomWallData(rng_carve)
 	local data = {}
 	data.randomly_carve = rng_carve

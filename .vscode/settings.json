@@ -1,0 +1,11 @@
+{
+    "Lua.diagnostics.globals": [
+        "minetest",
+        "vector",
+        "VoxelArea",
+        "ItemStack"
+    ],
+    "Lua.diagnostics.disable": [
+        "lowercase-global"
+    ]
+}
