@@ -53,6 +53,7 @@ minetest.register_node("blockrooms:floodlight", {
     paramtype = "light",
     light_source = 14,
     paramtype2 = "wallmounted",
+    drop = "blockrooms:glass_shard 3",
 	node_box = {
         type = "fixed",
         fixed = {

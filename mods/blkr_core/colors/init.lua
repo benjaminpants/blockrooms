@@ -13,7 +13,8 @@ colors.colors = {
     {name="White",id="wht",rgb="FFFFFF"},
     {name="Gray",id="gry",rgb="999999"},
     {name="Black",id="blk",rgb="18181E"},
-    {name="Brown",id="brn",rgb="7A4025"}
+    {name="Brown",id="brn",rgb="7A4025"},
+    {name="Cream",id="crm",rgb="E5B285"}
 }
 
 colors.hextorgb = function(hex) --grabbed from https://gist.github.com/jasonbradley/4357406 with minor adjustments
