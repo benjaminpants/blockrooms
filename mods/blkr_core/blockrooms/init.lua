@@ -71,7 +71,9 @@ dofile(default_path .. "/sfinv.lua")
 
 dofile(default_path .. "/exhaustion_hooks.lua")
 
-dofile(default_path .. "/materials.lua")
+dofile(default_path .. "materials/metals.lua")
+
+dofile(default_path .. "materials/office.lua")
 
 dofile(default_path .. "/tools.lua")
 

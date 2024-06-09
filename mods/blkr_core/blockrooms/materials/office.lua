@@ -1,6 +1,5 @@
 local S = minetest.get_translator()
 
-
 minetest.register_craftitem("blockrooms:glass_shard", {
     description = S("Glass Shard"),
     inventory_image = "blockrooms_glass_shard.png"
@@ -131,13 +130,6 @@ minetest.register_craft({
         "blockrooms:pin"
     }
 })
-
-minetest.register_craftitem("blockrooms:iron_plate", {
-    description = S("Iron Plate"),
-    inventory_image = "blockrooms_iron_plate.png"
-})
-
---useless unless you can melt them down
 
 minetest.register_craftitem("blockrooms:money_penny", {
     description = S("Pennies"),
